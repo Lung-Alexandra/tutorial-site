@@ -1,0 +1,52 @@
+.materials-libary {
+    padding: 30px;
+    background-color: var(--nav-bg);
+    border-radius: 23px;
+}
+
+.materials-libary .heading-section h4 em{
+    color: var(--page-text-col);
+}
+
+.materials-libary .item {
+    border-bottom: 1px solid #27292a;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+}
+
+.materials-libary .last-item {
+    margin-bottom: 30px;
+}
+
+.profile-library .last-item {
+    border-bottom: none;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+.materials-libary .item{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    vertical-align: middle;
+}
+
+.materials-libary .item .description{
+    flex-basis: 70%;
+}
+.materials-libary .item .description h4 {
+    font-size: 15px;
+    color: var(--page-text-col);
+    margin-bottom: 5px;
+}
+
+.materials-libary .item .description span {
+    color:var(--page-span-text-col);
+    font-size: 14px;
+}
+
+.materials-libary .main-button {
+    flex-basis: 30%;
+    text-align: center;
+    margin-bottom: -53px;
+}

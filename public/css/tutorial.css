@@ -1,0 +1,101 @@
+:root {
+    --page-text-col: #cecece;
+    --page-span-text-col: #666;
+}
+.light{
+    --page-text-col: #000000;
+    --page-span-text-col: #666;
+}
+.content-section {
+    background-color: var(--nav-bg);
+    border-radius: 23px;
+    padding: 30px;
+    width: 100%;
+}
+.content-section .heading-section h4 em{
+    color: var(--page-text-col);
+}
+
+.content-section .item p {
+    font-size: 15px;
+    margin-top: 20px;
+    margin-bottom: 0;
+    color: var(--page-text-col);
+    display: inline-block;
+}
+
+.content-section .item span {
+    color: var(--page-span-text-col);
+    display: block;
+    margin-top: 7px;
+    font-weight: 400;
+}
+
+.content-section .item ul {
+    float: right;
+    margin-top: 20px;
+}
+
+.content-section .item ul li {
+    text-align: right;
+    color: var(--page-text-col);
+    font-size: 14px;
+}
+
+
+.content-menu {
+    display: flex;
+    flex-direction: column;
+    border-radius: 23px;
+    background-color: var(--nav-bg);
+    padding: 30px;
+    margin-bottom: 10px;
+    max-height: 567px;
+    min-height: 567px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.content-menu ul li {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    border-bottom: 1px solid #3a3c3d;
+    margin-bottom: 28px;
+}
+
+
+.content-menu ul li h4 {
+    font-size: 15px;
+    padding-top: 3px;
+}
+
+.content-menu ul li h6 {
+    font-size: 15px;
+    color: var(--page-span-text-col);
+    font-weight: 400;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.content-menu ul li span {
+    color: var(--page-span-text-col);
+    font-size: 15px;
+    margin-right: 10px;
+}
+
+
+
+
+.content-menu .text-button:hover {
+    font-weight: 600;
+    color: var(--nav-hov-text-col);
+    font-size: 15px;
+}
+
+.content-menu .text-button{
+    font-weight: 600;
+    color: var(--nav-text-col);
+    font-size: 15px;
+    cursor: pointer;
+}
