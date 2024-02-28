@@ -1,9 +1,12 @@
+'use strict';
 const express = require('express');
 const app = express();
 const nunjucks = require('nunjucks');
 const fs = require('fs');
 const path = require('path');
 const mark =  require('markdown-it')();
+const bodyParser = require('body-parser');
+const serverless = require('serverless-http');
 
 const PORT = process.env.PORT || 3000;
 
@@ -150,14 +153,13 @@ app.get('/materials', (req, res) => {
 });
 
 
-// Pornirea serverului
+// // Pornirea serverului
 app.listen(PORT, () => {
     console.log(`Server adresa http://localhost:${PORT}`);
 });
 
 
-
-
+module.exports = app;
 
 
 
