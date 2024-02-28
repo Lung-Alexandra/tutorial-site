@@ -6,6 +6,7 @@ Navbar Style
 :root{
     /*dark*/
     --nav-text-col: #999898;
+    --nav-text-col-rev:#151515;
     --nav-hov-text-col: #a96464;
     --nav-active-text-col: #919191;
     --nav-search-col:#27292a;
@@ -15,6 +16,7 @@ Navbar Style
 }
 .light {
     --nav-text-col: #151515;
+    --nav-text-col-rev:#999898;
     --nav-hov-text-col: #831515;
     --nav-active-text-col: #3c3c3c;
     --nav-search-col: #bcbcbc;

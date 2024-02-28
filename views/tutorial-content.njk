@@ -1,7 +1,14 @@
-<div class="heading-section">
-    <h4><em>{{ nameFile }}</em></h4>
-</div>
+{% if nameFile %}
+    <div class="heading-section">
+        <h4><em>{{ nameFile }}</em></h4>
+    </div>
 
-<div class="item">
-    {{ content | safe }}
-</div>
+
+    <div class="item">
+        {{ content | safe }}
+    </div>
+{% else %}
+    <div class="heading-section">
+            <h4><em>Welcome</em></h4>
+    </div>
+{% endif %}

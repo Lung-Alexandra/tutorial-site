@@ -4,7 +4,7 @@ const app = express();
 const nunjucks = require('nunjucks');
 const fs = require('fs');
 const path = require('path');
-const mark =  require('markdown-it')();
+const mark =  require('marked');
 
 
 const PORT = process.env.PORT || 3000;
@@ -125,7 +125,7 @@ fileStructure.forEach(file => {
     app.get(route, (req, res) => {
         res.locals.nameFile = file.split('/').pop().replace(/\.md$/, '');
         const data = fs.readFileSync(__dirname + route, 'utf8');
-        const cont = mark.render(data);
+        const cont = mark.parse(data);
         res.render('tutorial', {title: 'Tutorial', content: cont});
     });
 });
@@ -155,4 +155,3 @@ app.listen(PORT, () => {
 
 
 module.exports = app;
-

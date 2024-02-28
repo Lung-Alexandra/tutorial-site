@@ -1,50 +1,26 @@
 :root {
     --page-text-col: #cecece;
     --page-span-text-col: #666;
+    --bg-color-code: #b1b1b1;
+
 }
 .light{
+    --bg-color-code: #232323;
     --page-text-col: #000000;
     --page-span-text-col: #666;
 }
 
-.content-section {
-    background-color: var(--nav-bg);
-    border-radius: 23px;
-    padding: 30px;
-    width: 100%;
+h1,h4,h2,h3,h6{
+    margin: 2px;
+    color: var(--nav-text-col);
 }
-.content-section .heading-section h4 em{
-    color: var(--page-text-col);
+.col-lg-3 {
+    position: relative;
 }
-
-.content-section .item p {
-    font-size: 15px;
-    margin-top: 20px;
-    margin-bottom: 0;
-    color: var(--page-text-col);
-    display: inline-block;
-}
-
-.content-section .item span {
-    color: var(--page-span-text-col);
-    display: block;
-    margin-top: 7px;
-    font-weight: 400;
-}
-
-.content-section .item ul {
-    float: right;
-    margin-top: 20px;
-}
-
-.content-section .item ul li {
-    text-align: right;
-    color: var(--page-text-col);
-    font-size: 14px;
-}
-
 
 .content-menu {
+    position: sticky;
+    top:90px;
     display: flex;
     flex-direction: column;
     border-radius: 23px;
@@ -92,7 +68,6 @@
     border-left: 1px solid #3a3c3d;
 }
 
-
 .content-menu .submenu li {
     margin-bottom: 5px;
     border-bottom:none;
@@ -113,4 +88,64 @@
     color: var(--nav-text-col);
     font-size: 15px;
     cursor: pointer;
+}
+
+.content-section {
+    background-color: var(--nav-bg);
+    border-radius: 23px;
+    padding: 30px;
+    width: 100%;
+}
+
+.content-section .heading-section h4 em{
+    color: var(--page-text-col);
+}
+
+.content-section .item p {
+    font-size: 15px;
+    margin-top: 20px;
+    margin-bottom: 0;
+    color: var(--page-text-col);
+    display: inline-block;
+}
+
+.content-section .item span {
+    color: var(--page-span-text-col);
+    display: block;
+    margin-top: 7px;
+    font-weight: 400;
+}
+
+.content-section .item ul {
+    margin-left: 30px;
+    float: left;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.content-section .item ul li  {
+    text-align: left;
+    color: var(--page-text-col);
+    font-size: 14px;
+    list-style-type: disc;
+}
+.content-section .item ul li a{
+    color: var(--page-text-col);
+}
+code {
+    padding: 0.2em 0.4em;
+    margin: 0;
+    font-size: 85%;
+    white-space: break-spaces;
+    background-color: var(--bg-color-code);
+    color: var(--nav-text-col-rev);
+    border-radius: 6px;
+}
+
+pre{
+    background-color: var(--menu-col);
+}
+pre code{
+    color: var(--nav-text-col);
+    background-color: transparent;
 }
