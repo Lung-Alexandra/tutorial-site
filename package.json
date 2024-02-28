@@ -9,10 +9,6 @@
     "dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Lung-Alexandra/test"
-  },
   "author": "",
   "license": "ISC",
   "devDependencies": {
@@ -20,11 +16,9 @@
     "nodemon": "^3.1.0"
   },
   "dependencies": {
-    "body-parser": "^1.20.2",
     "express": "^4.18.2",
     "markdown-it": "^14.0.0",
     "marked": "^12.0.0",
-    "nunjucks": "^3.2.4",
-    "serverless-http": "^3.2.0"
+    "nunjucks": "^3.2.4"
   }
 }

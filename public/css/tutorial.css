@@ -6,6 +6,7 @@
     --page-text-col: #000000;
     --page-span-text-col: #666;
 }
+
 .content-section {
     background-color: var(--nav-bg);
     border-radius: 23px;
@@ -64,13 +65,14 @@
 
 
 .content-menu ul li h4 {
+    color: var(--nav-text-col);
     font-size: 15px;
     padding-top: 3px;
 }
 
 .content-menu ul li h6 {
     font-size: 15px;
-    color: var(--page-span-text-col);
+    color: var(--nav-text-col);
     font-weight: 400;
     margin-top: 5px;
     margin-bottom: 5px;
@@ -90,11 +92,15 @@
     border-left: 1px solid #3a3c3d;
 }
 
+
 .content-menu .submenu li {
     margin-bottom: 5px;
     border-bottom:none;
 }
 
+.content-menu .submenu li h4 a {
+    color: var(--nav-text-col);
+}
 
 .content-menu .text-button:hover {
     font-weight: 600;
@@ -102,7 +108,7 @@
     font-size: 15px;
 }
 
-.content-menu .text-button{
+.content-menu .text-button {
     font-weight: 600;
     color: var(--nav-text-col);
     font-size: 15px;

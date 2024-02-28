@@ -5,8 +5,7 @@ const nunjucks = require('nunjucks');
 const fs = require('fs');
 const path = require('path');
 const mark =  require('markdown-it')();
-const bodyParser = require('body-parser');
-const serverless = require('serverless-http');
+
 
 const PORT = process.env.PORT || 3000;
 
@@ -33,8 +32,7 @@ function getFileStructure(dirpath) {
 function getRoutes(fileStr) {
     const mdRoutes = []
     fileStr.forEach(file => {
-        let route = file.replace('resources', 'tutorial');
-        let segments = route.split('/');
+        let segments = file.split('/');
 
         // Construiește rute pentru fiecare segment intermediar
         for (let i = 2; i <= segments.length; i++) {
@@ -48,13 +46,11 @@ function getRoutes(fileStr) {
 }
 
 //stuctura directoare
-const fileStructure = getFileStructure(__dirname + '/resources');
+const fileStructure = getFileStructure(__dirname + '/tutorial');
 
 //rutele pt directoare
 let routes = getRoutes(fileStructure);
 
-// console.log(fileStructure)
-// console.log(routes)
 
 
 // Configurare pentru a folosi Nunjucks pentru sabloane
@@ -110,7 +106,7 @@ app.use(function (req, res, next) {
 
         currentLevel.push({
             text: nameWithoutExtension,
-            url: filePath.replace('resources','/tutorial')
+            url: filePath.replace('tutorial','/tutorial')
         });
     });
     res.locals.subdirectories = menu;
@@ -125,11 +121,10 @@ app.get('/', (req, res) => {
 
 
 fileStructure.forEach(file => {
-    const route ='/'+  file.replace('resources','tutorial');
-
+    const route = file.replace('tutorial','/tutorial');
     app.get(route, (req, res) => {
-        res.locals.nameFile = file.split('/').pop();
-        const data = fs.readFileSync(__dirname + '/' +file, 'utf8');
+        res.locals.nameFile = file.split('/').pop().replace(/\.md$/, '');
+        const data = fs.readFileSync(__dirname + route, 'utf8');
         const cont = mark.render(data);
         res.render('tutorial', {title: 'Tutorial', content: cont});
     });
@@ -160,8 +155,4 @@ app.listen(PORT, () => {
 
 
 module.exports = app;
-
-
-
-
 
