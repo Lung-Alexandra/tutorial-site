@@ -55,8 +55,9 @@
 </div>
 <!-- ***** Preloader  ***** -->
 
-{% include 'navbar.njk' %}
 
+{% include 'navbar.njk' %}
+{% from "tutorial-menu.njk" import menuItem %}
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
@@ -64,13 +65,11 @@
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="content-menu">
-                             <ul>
-                                 {% for subdirectory in subdirectories %}
-                                    <li>
-                                        <h4 class="text-button"><a href="/tutorial/{{ subdirectory }}">{{ subdirectory }}</a></h4>
-                                    </li>
-                                 {% endfor %}
-                             </ul>
+                            <ul>
+                                   {% for item in subdirectories %}
+                                   {{  menuItem(item) }}
+                                   {% endfor %}
+                            </ul>
                         </div>
                     </div>
                     <div class="col-lg-9">
@@ -85,5 +84,16 @@
         </div>
     </div>
 </div>
+<script>
+    function toggleSubMenu(element) {
+        const subMenu = element.nextElementSibling;
+        if (subMenu.style.display === 'none') {
+            subMenu.style.display = 'block';
+        } else {
+            subMenu.style.display = 'none';
+        }
+    }
+
+</script>
 </body>
 </html>

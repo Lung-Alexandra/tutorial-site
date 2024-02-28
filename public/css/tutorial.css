@@ -50,8 +50,7 @@
     background-color: var(--nav-bg);
     padding: 30px;
     margin-bottom: 10px;
-    max-height: 567px;
-    min-height: 567px;
+    min-height: fit-content;
     overflow-y: scroll;
     overflow-x: hidden;
 }
@@ -60,7 +59,6 @@
     position: relative;
     display: inline-block;
     width: 100%;
-    border-bottom: 1px solid #3a3c3d;
     margin-bottom: 28px;
 }
 
@@ -84,7 +82,18 @@
     margin-right: 10px;
 }
 
+.content-menu .submenu {
+    display: inline-flex;
+    flex-direction: column;
+    list-style: none;
+    padding-left: 20px;
+    border-left: 1px solid #3a3c3d;
+}
 
+.content-menu .submenu li {
+    margin-bottom: 5px;
+    border-bottom:none;
+}
 
 
 .content-menu .text-button:hover {
