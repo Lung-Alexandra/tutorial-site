@@ -19,6 +19,7 @@
     "express": "^4.18.2",
     "markdown-it": "^14.0.0",
     "marked": "^12.0.0",
-    "nunjucks": "^3.2.4"
+    "nunjucks": "^3.2.4",
+    "zero-md": "^2.5.4"
   }
 }

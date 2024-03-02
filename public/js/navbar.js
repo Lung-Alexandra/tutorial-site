@@ -5,6 +5,7 @@ const
     content = $(".container");
 
 
+
 if (localStorage.getItem('mode') === 'dark') {
     sidebar.toggleClass("light");
     content.toggleClass("light");
@@ -18,9 +19,13 @@ modeSwitch.click(function () {
     $("body").toggleClass("light");
     if (sidebar.hasClass("light")) {
         modeIcon.removeClass("bx-moon").addClass("bx-sun");
+        if($(".markdown-body") !== undefined)
+            $(".markdown-body").attr('data-theme', 'dark');
         localStorage.setItem('mode', 'dark');
     } else {
         modeIcon.removeClass("bx-sun").addClass("bx-moon");
+        if($(".markdown-body") !== undefined)
+            $(".markdown-body").attr('data-theme', 'light');
         localStorage.setItem('mode', 'light');
     }
 });

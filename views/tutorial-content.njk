@@ -1,11 +1,13 @@
 {% if nameFile %}
+
     <div class="heading-section">
         <h4><em>{{ nameFile }}</em></h4>
     </div>
 
 
     <div class="item">
-        {{ content | safe }}
+
+  <zero-md> <script type="text/markdown" data-dedent>{{content}}</script></zero-md>
     </div>
 {% else %}
     <div class="heading-section">

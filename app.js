@@ -4,8 +4,6 @@ const app = express();
 const nunjucks = require('nunjucks');
 const fs = require('fs');
 const path = require('path');
-const mark =  require('marked');
-
 
 const PORT = process.env.PORT || 3000;
 
@@ -52,7 +50,6 @@ const fileStructure = getFileStructure(__dirname + '/tutorial');
 let routes = getRoutes(fileStructure);
 
 
-
 // Configurare pentru a folosi Nunjucks pentru sabloane
 nunjucks.configure('views', {
     autoescape: true,
@@ -64,6 +61,7 @@ app.set('view engine', 'njk');
 
 // Configurarea directorul pentru fisierele statice
 app.use(express.static(path.join(__dirname, '/public')));
+// app.use(express.static(path.join(__dirname, '/tutorial')));
 
 app.use(function (req, res, next) {
     res.locals.isActive = function (path) {
@@ -103,10 +101,10 @@ app.use(function (req, res, next) {
 
         const fileName = components[components.length - 1];
         const nameWithoutExtension = fileName.endsWith('.md') ? fileName.replace(/\.md$/, '') : fileName;
-
+        let url = filePath.replace('tutorial','/tutorial');
         currentLevel.push({
             text: nameWithoutExtension,
-            url: filePath.replace('tutorial','/tutorial')
+            url: url.endsWith('.md') ? url.replace(/\.md$/, '') : url
         });
     });
     res.locals.subdirectories = menu;
@@ -121,14 +119,15 @@ app.get('/', (req, res) => {
 
 
 fileStructure.forEach(file => {
-    const route = file.replace('tutorial','/tutorial');
+    let route = file.replace('tutorial','/tutorial');
+    route = route.endsWith('.md') ? route.replace(/\.md$/, '') : route;
     app.get(route, (req, res) => {
         res.locals.nameFile = file.split('/').pop().replace(/\.md$/, '');
-        const data = fs.readFileSync(__dirname + route, 'utf8');
-        const cont = mark.parse(data);
-        res.render('tutorial', {title: 'Tutorial', content: cont});
+        const data = fs.readFileSync(__dirname + route+".md", 'utf8');
+        res.render('tutorial', {title: 'Tutorial', content: data});
     });
 });
+
 
 
 routes.forEach(route => {
