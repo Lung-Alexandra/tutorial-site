@@ -123,7 +123,8 @@ fileStructure.forEach(file => {
     route = route.endsWith('.md') ? route.replace(/\.md$/, '') : route;
     app.get(route, (req, res) => {
         res.locals.nameFile = file.split('/').pop().replace(/\.md$/, '');
-        const data = fs.readFileSync(__dirname + route+".md", 'utf8');
+        const filepath = route.includes(".")? route : route + ".md"
+        const data = fs.readFileSync(__dirname + filepath, 'utf8');
         res.render('tutorial', {title: 'Tutorial', content: data});
     });
 });

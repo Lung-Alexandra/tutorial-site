@@ -6,9 +6,14 @@
 
 
     <div class="item">
-
-  <zero-md> <script type="text/markdown" data-dedent>{{content}}</script></zero-md>
+       <zero-md> <script type="text/markdown" data-dedent>{{content}}</script></zero-md>
     </div>
+    <script>
+        document.addEventListener('zero-md-ready', function () {
+              const markdownBody = document.querySelector('zero-md').shadowRoot.querySelector('.markdown-body');
+              markdownBody.setAttribute('data-theme', 'dark');
+        });
+    </script>
 {% else %}
     <div class="heading-section">
             <h4><em>Welcome</em></h4>
