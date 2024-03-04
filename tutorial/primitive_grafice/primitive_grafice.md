@@ -35,4 +35,14 @@ vârfurile indicate, pentru ca poligonul să poată  desenat:
 > Punctele  P<sub>1</sub> = (7, 1, 1) ,  P<sub>2</sub> = (-3, 3, 9) ,  P<sub>3</sub> = (1, -1, 9) , P<sub>4</sub> = (8, -4, 5)  sunt coplanare.
 
 
+[Formulele se pot scrie si cu sintaxa de latex](https://docs.mathjax.org/en/v2.7-latest/tex.html)
+
 $f(k) = {n \choose k} p^{k} (1-p)^{n-k}$
+
+$\overrightarrow{P_1P_2}\$
+
+\begin{vmatrix}
+a_{11} & a_{12} & a_{13} \\\\
+a_{21} & a_{22} & a_{23} \\\\
+a_{31} & a_{32} & a_{33}
+\end{vmatrix}
