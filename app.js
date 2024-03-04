@@ -5,6 +5,7 @@ const nunjucks = require('nunjucks');
 const fs = require('fs');
 const path = require('path');
 
+
 const PORT = process.env.PORT || 3000;
 
 function* walkSync(dir) {
@@ -61,7 +62,7 @@ app.set('view engine', 'njk');
 
 // Configurarea directorul pentru fisierele statice
 app.use(express.static(path.join(__dirname, '/public')));
-// app.use(express.static(path.join(__dirname, '/tutorial')));
+app.use('/tutorial',express.static(path.join(__dirname, '/tutorial')));
 
 app.use(function (req, res, next) {
     res.locals.isActive = function (path) {
@@ -119,14 +120,15 @@ app.get('/', (req, res) => {
 
 
 fileStructure.forEach(file => {
-    let route = file.replace('tutorial','/tutorial');
-    route = route.endsWith('.md') ? route.replace(/\.md$/, '') : route;
-    app.get(route, (req, res) => {
-        res.locals.nameFile = file.split('/').pop().replace(/\.md$/, '');
-        const filepath = route.includes(".")? route : route + ".md"
-        const data = fs.readFileSync(__dirname + filepath, 'utf8');
-        res.render('tutorial', {title: 'Tutorial', content: data});
-    });
+    let filepath = file.replace('tutorial','/tutorial');
+    if(filepath.includes('.') && filepath.endsWith('.md')) {
+        app.use(express.static(__dirname + filepath));
+        const route = filepath.endsWith('.md') ? filepath.replace(/\.md$/, '') : filepath;
+        app.get(route, (req, res) => {
+            res.locals.nameFile = route.split('/').pop().replace(/\.md$/, '');
+            res.render('tutorial', {title: 'Tutorial', source: filepath});
+        });
+    }
 });
 
 

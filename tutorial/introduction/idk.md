@@ -2,6 +2,15 @@
 ## some content
 some content
 # opengl-projects
+```cpp
+#include <iostream>
+using namespace std;
+
+int main() {
+cout << "Hello World!";
+return 0;
+}
+```
 
 [Google](https://google.com)
 
@@ -23,7 +32,7 @@ some content
 | Code           | `code`                        |
 | Horizontal Rule| ---                           |
 | Link           | [title](https://www.example.com) |
-| Image          | ![alt text](img.jpg)          |
+| Image          | ![img.png](img.png))          |
 
 
 

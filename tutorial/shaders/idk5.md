@@ -67,7 +67,7 @@ These elements extend the basic syntax by adding additional features. Not all Ma
 
 ### Fenced Code Block
 
-```
+```json
 {
   "firstName": "John",
   "lastName": "Smith",
@@ -75,6 +75,11 @@ These elements extend the basic syntax by adding additional features. Not all Ma
 }
 ```
 
+```ruby
+require 'redcarpet'
+markdown = Redcarpet.new("Hello World!")
+puts markdown.to_html
+```
 ### Footnote
 
 Here's a sentence with a footnote. [^1]
@@ -119,3 +124,5 @@ H~2~O
 X^2^
 
 E=mc<sup>2</sup>
+
+💡 **Tip**:
