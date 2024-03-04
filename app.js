@@ -92,7 +92,7 @@ app.use(function (req, res, next) {
                 if (!existingItem) {
                     // Dacă nu există, îl adăugăm
                     existingItem = {
-                        text: component,
+                        text: component.replace(/[-_]/g,' '),
                         active: isActive,
                         items: []
                     };
@@ -105,7 +105,7 @@ app.use(function (req, res, next) {
             const nameWithoutExtension = fileName.endsWith('.md') ? fileName.replace(/\.md$/, '') : fileName;
             let url = filePath.replace('tutorial', '/tutorial');
             currentLevel.push({
-                text: nameWithoutExtension,
+                text: nameWithoutExtension.replace(/[-_]/g,' '),
                 url: url.endsWith('.md') ? url.replace(/\.md$/, '') : url
             });
         }
@@ -127,11 +127,13 @@ fileStructure.forEach(file => {
         app.use(express.static(__dirname + filepath));
         const route = filepath.endsWith('.md') ? filepath.replace(/\.md$/, '') : filepath;
         app.get(route, (req, res) => {
-            res.locals.nameFile = route.split('/').pop().replace(/\.md$/, '');
+            const namefile=route.split('/').pop().replace(/\.md$/, '').replace(/[-_]/g,' ');
+            res.locals.nameFile = namefile.charAt(0).toUpperCase() + namefile.slice(1);
             res.render('tutorial', {title: 'Tutorial', source: filepath});
         });
     }
 });
+
 
 
 

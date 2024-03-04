@@ -31,12 +31,15 @@ h1,h4,h2,h3,h6{
     overflow-y: scroll;
     overflow-x: hidden;
 }
-
+.content-menu ul{
+    list-style: none;
+}
 .content-menu ul li {
     position: relative;
     display: inline-block;
     width: 100%;
     margin-bottom: 28px;
+    list-style: none;
 }
 
 
@@ -100,35 +103,3 @@ h1,h4,h2,h3,h6{
 .content-section .heading-section h4 em{
     color: var(--page-text-col);
 }
-
-/*.content-section .item p {*/
-/*    color: var(--page-text-col);*/
-/*}*/
-
-/*.content-section .item span {*/
-/*    color: var(--page-span-text-col);*/
-/*}*/
-
-/*.markdown-body{*/
-/*    background-color: transparent;*/
-/*}*/
-
-/*.content-section .item .markdown-body ul li  {*/
-/*    color: var(--page-text-col);*/
-/*}*/
-/*.content-section .item .markdown-body ul li a{*/
-/*    color: var(--page-text-col);*/
-/*}*/
-/*.markdown-body code {*/
-/*    background-color: var(--bg-color-code);*/
-/*    color: var(--nav-text-col-rev);*/
-/*    border-radius: 6px;*/
-/*}*/
-
-/*.markdown-body pre{*/
-/*    background-color: var(--menu-col);*/
-/*}*/
-/*.markdown-body pre code{*/
-/*    color: var(--nav-text-col);*/
-/*    background-color: transparent;*/
-/*}*/

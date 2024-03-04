@@ -20,6 +20,7 @@
     "markdown-it": "^14.0.0",
     "marked": "^12.0.0",
     "nunjucks": "^3.2.4",
+    "texme": "^1.2.2",
     "zero-md": "^2.5.4"
   }
 }

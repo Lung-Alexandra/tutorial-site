@@ -33,7 +33,7 @@ $(document).ready(function () {
     function setTheme() {
         loadedmd().then((result) => {
             if (result === true) {
-                const markdownBody =$($('zero-md')[0].shadowRoot).find('.markdown-body');
+                const markdownBody =$($('zero-md')[0]).find('.markdown-body');
                 const theme = sidebar.hasClass("light") ? 'light' : 'dark';
                 markdownBody.attr('data-theme', theme);
             }

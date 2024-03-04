@@ -43,7 +43,6 @@ html[xmlns] .clearfix {
 ul, li {
     padding: 0;
     margin: 0;
-    list-style: none;
 }
 
 header, nav, section, article, aside, footer, hgroup {
@@ -76,7 +75,6 @@ a:hover {
 h1, h2, h3, h4, h5, h6 {
     margin-top: 0px;
     margin-bottom: 0px;
-    color: #fff;
     font-weight: 700;
 }
 
@@ -87,7 +85,6 @@ ul {
 p {
     font-size: 15px;
     line-height: 30px;
-    color: #fff;
 }
 
 img {
@@ -146,7 +143,6 @@ body .page-content {
 
 p {
     font-size: 15px;
-    color: #666;
     line-height: 30px;
     margin-bottom: 0px;
 }
