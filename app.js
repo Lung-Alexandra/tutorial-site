@@ -81,32 +81,34 @@ app.use(function (req, res, next) {
     const menu = [];
 
     fileStructure.forEach(filePath => {
-        const components = filePath.split('/').slice(1);
-        let currentLevel = menu;
+        if(!filePath.includes('.') ||(filePath.includes('.')  && filePath.endsWith('.md'))) {
+            const components = filePath.split('/').slice(1);
+            let currentLevel = menu;
 
-        components.slice(0, -1).forEach(component => {
-            // Verificăm dacă componentul există deja în meniu
-            let existingItem = currentLevel.find(item => item.text === component);
-            const isActive = req.path.includes(component); // Verifică dacă directorul este activ
-            if (!existingItem) {
-                // Dacă nu există, îl adăugăm
-                existingItem = {
-                    text: component,
-                    active: isActive,
-                    items: []
-                };
-                currentLevel.push(existingItem);
-            }
-            currentLevel = existingItem.items;
-        });
+            components.slice(0, -1).forEach(component => {
+                // Verificăm dacă componentul există deja în meniu
+                let existingItem = currentLevel.find(item => item.text === component);
+                const isActive = req.path.includes(component); // Verifică dacă directorul este activ
+                if (!existingItem) {
+                    // Dacă nu există, îl adăugăm
+                    existingItem = {
+                        text: component,
+                        active: isActive,
+                        items: []
+                    };
+                    currentLevel.push(existingItem);
+                }
+                currentLevel = existingItem.items;
+            });
 
-        const fileName = components[components.length - 1];
-        const nameWithoutExtension = fileName.endsWith('.md') ? fileName.replace(/\.md$/, '') : fileName;
-        let url = filePath.replace('tutorial','/tutorial');
-        currentLevel.push({
-            text: nameWithoutExtension,
-            url: url.endsWith('.md') ? url.replace(/\.md$/, '') : url
-        });
+            const fileName = components[components.length - 1];
+            const nameWithoutExtension = fileName.endsWith('.md') ? fileName.replace(/\.md$/, '') : fileName;
+            let url = filePath.replace('tutorial', '/tutorial');
+            currentLevel.push({
+                text: nameWithoutExtension,
+                url: url.endsWith('.md') ? url.replace(/\.md$/, '') : url
+            });
+        }
     });
     res.locals.subdirectories = menu;
     next();
