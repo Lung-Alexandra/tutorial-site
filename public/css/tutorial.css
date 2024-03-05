@@ -103,3 +103,7 @@ h1,h4,h2,h3,h6{
 .content-section .heading-section h4 em{
     color: var(--page-text-col);
 }
+
+.token.operator{
+    background: transparent!important;
+}
