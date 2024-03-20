@@ -86,11 +86,10 @@ app.use(function (req, res, next) {
             let currentLevel = menu;
 
             components.slice(0, -1).forEach(component => {
-                // Verificăm dacă componentul există deja în meniu
                 let existingItem = currentLevel.find(item => item.text === component);
-                const isActive = req.path.includes(component); // Verifică dacă directorul este activ
+                const isActive = req.path.includes(component); // Verifica daca directorul este activ
                 if (!existingItem) {
-                    // Dacă nu există, îl adăugăm
+                    // Daca nu exista, il adaugam
                     existingItem = {
                         text: component.replace(/[-_]/g,' '),
                         active: isActive,
