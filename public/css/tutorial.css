@@ -51,14 +51,14 @@ h1,h4,h2,h3,h6{
     list-style: inside;
 }
 
-.content-menu ul li h4 {
+.content-menu ul li h4,.content-menu .search-results li h4 {
     color: var(--nav-text-col);
     font-size: 15px;
     padding-top: 3px;
     margin-bottom: 0;
 }
 
-.content-menu ul li h6 {
+.content-menu ul li h6 ,.content-menu .search-results li h6{
     font-size: 15px;
     color: var(--nav-text-col);
     font-weight: 400;
@@ -66,7 +66,7 @@ h1,h4,h2,h3,h6{
     margin-bottom: 5px;
 }
 
-.content-menu ul li span {
+.content-menu ul li span ,.content-menu .search-results li span{
     color: var(--page-span-text-col);
     font-size: 15px;
     margin-right: 10px;
