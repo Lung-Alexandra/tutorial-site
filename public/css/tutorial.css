@@ -85,17 +85,17 @@ h1,h4,h2,h3,h6{
     border-bottom:none;
 }
 
-.content-menu .submenu li h4 a {
+.content-menu .submenu li h4 a,.content-menu .search-results li h4 a {
     color: var(--nav-text-col);
 }
 
-.content-menu .text-button:hover {
+.content-menu .text-button:hover,.content-menu .search-results li h4 a:hover{
     font-weight: 600;
     color: var(--nav-hov-text-col);
     font-size: 15px;
 }
 
-.content-menu .text-button {
+.content-menu .text-button,.content-menu .search-results .text-button{
     font-weight: 600;
     color: var(--nav-text-col);
     font-size: 15px;
