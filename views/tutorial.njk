@@ -20,8 +20,8 @@
     <link rel="stylesheet" href="/css/navbar.css">
     <link rel="stylesheet" href="/css/tutorial.css">
     <link
-     rel="stylesheet"
-     href="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/themes/prism.min.css"
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/gh/PrismJS/prism@1/themes/prism.min.css"
     />
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -40,67 +40,56 @@
 
     <script>
         window.ZeroMdConfig = {
-          // URLs of Marked and Prism libraries
-          markedUrl: 'https://cdn.jsdelivr.net/gh/markedjs/marked@3/marked.min.js',
-          // URLs in an array are loaded in the prescribed order
-          prismUrl: [
-            // Add `data-manual` attribute to its `<script>` tag
-            ['https://cdn.jsdelivr.net/gh/PrismJS/prism@1/prism.min.js', 'data-manual'],
-            'https://cdn.jsdelivr.net/gh/PrismJS/prism@1/plugins/autoloader/prism-autoloader.min.js',
+            // URLs of Marked and Prism libraries
+            markedUrl: 'https://cdn.jsdelivr.net/gh/markedjs/marked@3/marked.min.js',
+            // URLs in an array are loaded in the prescribed order
+            prismUrl: [
+                // Add `data-manual` attribute to its `<script>` tag
+                ['https://cdn.jsdelivr.net/gh/PrismJS/prism@1/prism.min.js', 'data-manual'],
+                'https://cdn.jsdelivr.net/gh/PrismJS/prism@1/plugins/autoloader/prism-autoloader.min.js',
 
-          ],
-          // External stylesheets are loaded in the prescribed order
-          cssUrls: [
-            '/css/github-markdown.css',
-            'https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-dark.min.css',
-            'https://cdn.jsdelivr.net/gh/PrismJS/prism@1/plugins/toolbar/prism-toolbar.min.css',
-          ],
+            ],
+            // External stylesheets are loaded in the prescribed order
+            cssUrls: [
+                '/css/github-markdown.css',
+                'https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-one-dark.min.css',
+                'https://cdn.jsdelivr.net/gh/PrismJS/prism@1/plugins/toolbar/prism-toolbar.min.css',
+            ],
         }
 
     </script>
     <script>
         MathJax = {
-                     tex: {
-                       inlineMath: [
-                         ['$', '$'],
-                         ['\\(', '\\)']
-                       ]
-                     }
-                   }
-         addEventListener('zero-md-rendered', () => MathJax.typeset())
+            tex: {
+                inlineMath: [
+                    ['$', '$'],
+                    ['\\(', '\\)']
+                ]
+            }
+        }
+        addEventListener('zero-md-rendered', () => MathJax.typeset())
         document.addEventListener('zero-md-ready', function () {
-              const markdownBody = document.querySelector('zero-md').querySelector('.markdown-body');
-              const mode = $(".nav-area").hasClass("light") ? 'light' : 'dark';
-              markdownBody.setAttribute('data-theme', mode);
-              MathJax.typeset();
+            const markdownBody = document.querySelector('zero-md').querySelector('.markdown-body');
+            const mode = $(".nav-area").hasClass("light") ? 'light' : 'dark';
+            markdownBody.setAttribute('data-theme', mode);
+            MathJax.typeset();
         });
     </script>
     <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 
     <script
-        type="module"
-        src="https://cdn.jsdelivr.net/gh/zerodevx/zero-md@2/dist/zero-md.min.js"
+            type="module"
+            src="https://cdn.jsdelivr.net/gh/zerodevx/zero-md@2/dist/zero-md.min.js"
     ></script>
 
-    <script type ="module" src="/js/custom.js"></script>
-    <script type ="module" src="/js/tutorial.js"></script>
+    <script type="module" src="/js/custom.js"></script>
+    <script type="module" src="/js/tutorial.js"></script>
 
 </head>
 
 <body>
-<!-- ***** Preloader ***** -->
-<div id="js-preloader" class="js-preloader">
-    <div class="preloader-inner">
-        <span class="dot"></span>
-        <div class="dots">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-    </div>
-</div>
-<!-- ***** Preloader  ***** -->
 
+{% include 'preloader.njk' %}
 
 {% include 'navbar.njk' %}
 {% from "tutorial-menu.njk" import menuItem %}
@@ -112,24 +101,15 @@
                     <div class="col-lg-3">
                         <div class="content-menu">
                             <ul>
-                                   {% for item in subdirectories %}
-                                   {{  menuItem(item) }}
-                                   {% endfor %}
+                                {% for item in subdirectories %}
+                                {{ menuItem(item) }}
+                                {% endfor %}
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-9">
                         <div class="content-section header-text">
-                         <div class="heading-section">
-                                 <h4><em>{{ nameFile }}</em></h4>
-                             </div>
-
-
-                             <div class="item">
-                                <zero-md src="{{source}}" no-shadow>
-                                </zero-md>
-                             </div>
-
+                            {% include 'tutorial-content.njk' %}
                         </div>
                     </div>
 

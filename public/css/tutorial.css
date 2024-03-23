@@ -31,6 +31,9 @@ h1,h4,h2,h3,h6{
     overflow-y: scroll;
     overflow-x: hidden;
 }
+.content-menu h4 {
+    margin-bottom: 28px;
+}
 .content-menu ul{
     list-style: none;
 }
@@ -41,12 +44,18 @@ h1,h4,h2,h3,h6{
     margin-bottom: 28px;
     list-style: none;
 }
-
+.content-menu .search-results {
+    list-style: inside;
+}
+.content-menu .search-results li{
+    list-style: inside;
+}
 
 .content-menu ul li h4 {
     color: var(--nav-text-col);
     font-size: 15px;
     padding-top: 3px;
+    margin-bottom: 0;
 }
 
 .content-menu ul li h6 {

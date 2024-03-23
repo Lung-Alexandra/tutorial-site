@@ -4,7 +4,7 @@ const app = express();
 const nunjucks = require('nunjucks');
 const fs = require('fs');
 const path = require('path');
-
+const marked = require('marked');
 
 const PORT = process.env.PORT || 3000;
 
@@ -37,9 +37,9 @@ function getRoutes(fileStr) {
         for (let i = 2; i <= segments.length; i++) {
             let subRoute = segments.slice(0, i).join('/');
             if (!mdRoutes.includes(subRoute) && !subRoute.endsWith('.md')) {
-                    mdRoutes.push(subRoute.replace('tutorial', '/tutorial'));
-                }
+                mdRoutes.push(subRoute.replace('tutorial', '/tutorial'));
             }
+        }
     });
     return mdRoutes.filter((item, index) => mdRoutes.indexOf(item) === index).sort((a, b) => b.length - a.length);
 }
@@ -62,7 +62,7 @@ app.set('view engine', 'njk');
 
 // Configurarea directorul pentru fisierele statice
 app.use(express.static(path.join(__dirname, '/public')));
-app.use('/tutorial',express.static(path.join(__dirname, '/tutorial')));
+app.use('/tutorial', express.static(path.join(__dirname, '/tutorial')));
 
 app.use(function (req, res, next) {
     res.locals.isActive = function (path) {
@@ -81,7 +81,7 @@ app.use(function (req, res, next) {
     const menu = [];
 
     fileStructure.forEach(filePath => {
-        if(!filePath.includes('.') ||(filePath.includes('.')  && filePath.endsWith('.md'))) {
+        if (!filePath.includes('.') || (filePath.includes('.') && filePath.endsWith('.md'))) {
             const components = filePath.split('/').slice(1);
             let currentLevel = menu;
 
@@ -91,7 +91,7 @@ app.use(function (req, res, next) {
                 if (!existingItem) {
                     // Daca nu exista, il adaugam
                     existingItem = {
-                        text: component.replace(/[-_]/g,' '),
+                        text: component.replace(/[-_]/g, ' '),
                         active: isActive,
                         items: []
                     };
@@ -104,7 +104,7 @@ app.use(function (req, res, next) {
             const nameWithoutExtension = fileName.endsWith('.md') ? fileName.replace(/\.md$/, '') : fileName;
             let url = filePath.replace('tutorial', '/tutorial');
             currentLevel.push({
-                text: nameWithoutExtension.replace(/[-_]/g,' '),
+                text: nameWithoutExtension.replace(/[-_]/g, ' '),
                 url: url.endsWith('.md') ? url.replace(/\.md$/, '') : url
             });
         }
@@ -114,26 +114,69 @@ app.use(function (req, res, next) {
 });
 
 
-// rutele
+// routes
 app.get('/', (req, res) => {
     res.render('index', {title: 'Home'});
 });
 
 
+app.get('/search', (req, res) => {
+    const searchTerm = req.query.searchKeyword || ''; // Get search term from query parameter
+    const results = [];
+
+    // loop through all Markdown files
+    fileStructure.forEach(file => {
+        if (file.endsWith('.md')) {
+            const fileContent = fs.readFileSync(file, 'utf-8').toLowerCase(); // Read and lowercase content
+
+            // find all occurrences of the search term (case-insensitive)
+            let startIndex = 0;
+            const occurrences = [];
+            while ((startIndex = fileContent.indexOf(searchTerm.toLowerCase(), startIndex)) !== -1) {
+                const endIndex = startIndex + searchTerm.length;
+                const surroundingText = extractSurroundingText(fileContent, startIndex, endIndex)
+                const context = marked.marked(surroundingText);
+                occurrences.push(
+                    context
+                );
+
+                startIndex++; // move to next occurrence
+            }
+
+            if (occurrences.length) {
+                const nameWithoutExtension = file.replace(/\.md$/, '');
+                const url = nameWithoutExtension;
+                results.push({ url, name: nameWithoutExtension.replace(/[-_]/g, ' '), context:occurrences });
+            }
+        }
+    });
+
+    res.render('search', { title: 'Search Results', term: searchTerm, results: results });
+});
+
+
+function extractSurroundingText(content, startIndex, endIndex) {
+
+    const beforeLength = Math.max(startIndex - 50, 0);
+    const afterLength = Math.min(endIndex + 50, content.length) - endIndex;
+
+    return "..."+content.substring(beforeLength,  endIndex + afterLength)+"..." ;
+}
+
+
+
 fileStructure.forEach(file => {
-    let filepath = file.replace('tutorial','/tutorial');
-    if(filepath.includes('.') && filepath.endsWith('.md')) {
+    let filepath = file.replace('tutorial', '/tutorial');
+    if (filepath.includes('.') && filepath.endsWith('.md')) {
         app.use(express.static(__dirname + filepath));
         const route = filepath.endsWith('.md') ? filepath.replace(/\.md$/, '') : filepath;
         app.get(route, (req, res) => {
-            const namefile=route.split('/').pop().replace(/\.md$/, '').replace(/[-_]/g,' ');
+            const namefile = route.split('/').pop().replace(/\.md$/, '').replace(/[-_]/g, ' ');
             res.locals.nameFile = namefile.charAt(0).toUpperCase() + namefile.slice(1);
             res.render('tutorial', {title: 'Tutorial', source: filepath});
         });
     }
 });
-
-
 
 
 routes.forEach(route => {
