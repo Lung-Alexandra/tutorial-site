@@ -5,6 +5,8 @@ const nunjucks = require('nunjucks');
 const fs = require('fs');
 const path = require('path');
 const marked = require('marked');
+const lunr = require('lunr');
+
 
 const PORT = process.env.PORT || 3000;
 
@@ -23,7 +25,7 @@ function getFileStructure(dirpath) {
     let structure = []
     for (const x of walkSync(dirpath)) {
         let cale = path.relative(__dirname, x).split(path.sep).join('/')
-        structure.push(cale);
+        structure.push(cale.replace('tutorial', '/tutorial'));
     }
     return structure;
 }
@@ -37,7 +39,7 @@ function getRoutes(fileStr) {
         for (let i = 2; i <= segments.length; i++) {
             let subRoute = segments.slice(0, i).join('/');
             if (!mdRoutes.includes(subRoute) && !subRoute.endsWith('.md')) {
-                mdRoutes.push(subRoute.replace('tutorial', '/tutorial'));
+                mdRoutes.push(subRoute);
             }
         }
     });
@@ -50,6 +52,32 @@ const fileStructure = getFileStructure(__dirname + '/tutorial');
 //rutele pt directoare
 let routes = getRoutes(fileStructure);
 
+const data = []
+// Indexing function to create a Lunr.js index for search
+function createIndex() {
+    return lunr(function () {
+        this.ref('url');
+        this.field('title');
+        this.field('content');
+        // this.pipeline.add(lunr.trimmer, lunr.stemmer);
+        // this.searchPipeline.add(lunr.stemmer)
+        this.tokenizer.separator = /(?:[_/]|\s|-)/;
+        this.metadataWhitelist = ['position']
+        fileStructure.forEach(file => {
+            if (file.endsWith('.md')) {
+                const markdown = fs.readFileSync(__dirname + file, 'utf8');
+                const title = path.basename(file, '.md');
+                data.push({title:title, content:markdown});
+                this.add({url: file, title: title, content: markdown});
+
+            }
+        });
+    });
+}
+
+// Create the Lunr.js index
+const index = createIndex();
+// fs.writeFileSync('index.json', JSON.stringify(index));
 
 // Configurare pentru a folosi Nunjucks pentru sabloane
 nunjucks.configure('views', {
@@ -82,7 +110,7 @@ app.use(function (req, res, next) {
 
     fileStructure.forEach(filePath => {
         if (!filePath.includes('.') || (filePath.includes('.') && filePath.endsWith('.md'))) {
-            const components = filePath.split('/').slice(1);
+            const components = filePath.split('/').slice(1).filter(element => element !== "tutorial");
             let currentLevel = menu;
 
             components.slice(0, -1).forEach(component => {
@@ -102,10 +130,10 @@ app.use(function (req, res, next) {
 
             const fileName = components[components.length - 1];
             const nameWithoutExtension = fileName.endsWith('.md') ? fileName.replace(/\.md$/, '') : fileName;
-            let url = filePath.replace('tutorial', '/tutorial');
+            let url = filePath.endsWith('.md') ? filePath.replace(/\.md$/, '') : filePath;
             currentLevel.push({
                 text: nameWithoutExtension.replace(/[-_]/g, ' '),
-                url: url.endsWith('.md') ? url.replace(/\.md$/, '') : url
+                url: url
             });
         }
     });
@@ -120,53 +148,30 @@ app.get('/', (req, res) => {
 });
 
 
+// Search endpoint
 app.get('/search', (req, res) => {
-    const searchTerm = req.query.searchKeyword || ''; // Get search term from query parameter
-    const results = [];
+    const query = req.query.searchKeyword || '';
+    const results = index.search(query);
 
-    // loop through all Markdown files
-    fileStructure.forEach(file => {
-        if (file.endsWith('.md')) {
-            const fileContent = fs.readFileSync(file, 'utf-8').toLowerCase(); // Read and lowercase content
-
-            // find all occurrences of the search term (case-insensitive)
-            let startIndex = 0;
-            const occurrences = [];
-            while ((startIndex = fileContent.indexOf(searchTerm.toLowerCase(), startIndex)) !== -1) {
-                const endIndex = startIndex + searchTerm.length;
-                const surroundingText = extractSurroundingText(fileContent, startIndex, endIndex)
-                const context = marked.marked(surroundingText);
-                occurrences.push(
-                    context
-                );
-
-                startIndex++; // move to next occurrence
-            }
-
-            if (occurrences.length) {
-                const nameWithoutExtension = file.replace(/\.md$/, '');
-                const url = nameWithoutExtension;
-                results.push({ url, name: nameWithoutExtension.replace(/[-_]/g, ' '), context:occurrences });
-            }
-        }
+    const searchResults = results.map(result => {
+        const filePath = result.ref;
+        const title = path.basename(filePath, '.md');
+        const metadata = result.matchData.metadata;
+        const positions = metadata ? metadata[query].content.position : [];
+        const context = positions.map(pos => {
+            const startPos = pos[0];
+            const endPos = startPos + pos[1];
+            // Extract context from the content based on token positions
+            return data.find(item => item.title === title).content.substring(startPos, endPos);
+        }).join('...'); // Join multiple contexts if needed
+        return { title, url: filePath.replace('.md', ''), context:context };
     });
 
-    res.render('search', { title: 'Search Results', term: searchTerm, results: results });
+    res.render('search', {title: 'Search Results', term: query, results: searchResults});
 });
 
-
-function extractSurroundingText(content, startIndex, endIndex) {
-
-    const beforeLength = Math.max(startIndex - 50, 0);
-    const afterLength = Math.min(endIndex + 50, content.length) - endIndex;
-
-    return "..."+content.substring(beforeLength,  endIndex + afterLength)+"..." ;
-}
-
-
-
 fileStructure.forEach(file => {
-    let filepath = file.replace('tutorial', '/tutorial');
+    let filepath = file;
     if (filepath.includes('.') && filepath.endsWith('.md')) {
         app.use(express.static(__dirname + filepath));
         const route = filepath.endsWith('.md') ? filepath.replace(/\.md$/, '') : filepath;
