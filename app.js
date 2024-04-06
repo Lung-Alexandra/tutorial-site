@@ -53,6 +53,7 @@ const fileStructure = getFileStructure(__dirname + '/tutorial');
 let routes = getRoutes(fileStructure);
 
 const data = []
+
 // Indexing function to create a Lunr.js index for search
 function createIndex() {
     return lunr(function () {
@@ -67,7 +68,7 @@ function createIndex() {
             if (file.endsWith('.md')) {
                 const markdown = fs.readFileSync(__dirname + file, 'utf8');
                 const title = path.basename(file, '.md');
-                data.push({title:title, content:markdown});
+                data.push({title: title, content: lunr.tokenizer(markdown)});
                 this.add({url: file, title: title, content: markdown});
 
             }
@@ -78,6 +79,7 @@ function createIndex() {
 // Create the Lunr.js index
 const index = createIndex();
 // fs.writeFileSync('index.json', JSON.stringify(index));
+fs.writeFileSync('data.json', JSON.stringify(data));
 
 // Configurare pentru a folosi Nunjucks pentru sabloane
 nunjucks.configure('views', {
@@ -154,19 +156,25 @@ app.get('/search', (req, res) => {
     const results = index.search(query);
 
     const searchResults = results.map(result => {
+        const cont = []
         const filePath = result.ref;
         const title = path.basename(filePath, '.md');
-        const metadata = result.matchData.metadata;
-        const positions = metadata ? metadata[query].content.position : [];
-        const context = positions.map(pos => {
-            const startPos = pos[0];
-            const endPos = startPos + pos[1];
-            // Extract context from the content based on token positions
-            return data.find(item => item.title === title).content.substring(startPos, endPos);
-        }).join('...'); // Join multiple contexts if needed
-        return { title, url: filePath.replace('.md', ''), context:context };
+        const content = data.find(item => item.title === title).content
+        // const ind = content.findIndex(token => token.str === query);
+        const ind = content.reduce(function (a, token, i) {
+            if (token.str === query)
+                a.push(i);
+            return a;
+        }, []);
+        ind.forEach(ind => {
+            const windowSize = 4;
+            const start = ind - windowSize >= 0 ? ind - windowSize : 0
+            const end = ind + windowSize + 1 < content.length ? ind + windowSize + 1 : content.length
+            const context = content.slice(start, end).join(" ")
+            cont.push(context)
+        });
+        return {title, url: filePath.replace('.md', ''), context: cont};
     });
-
     res.render('search', {title: 'Search Results', term: query, results: searchResults});
 });
 
