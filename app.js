@@ -79,7 +79,7 @@ function createIndex() {
 // Create the Lunr.js index
 const index = createIndex();
 // fs.writeFileSync('index.json', JSON.stringify(index));
-fs.writeFileSync('data.json', JSON.stringify(data));
+// fs.writeFileSync('data.json', JSON.stringify(data));
 
 // Configurare pentru a folosi Nunjucks pentru sabloane
 nunjucks.configure('views', {
