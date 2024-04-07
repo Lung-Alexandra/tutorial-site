@@ -178,7 +178,10 @@ app.get('/search', (req, res) => {
 
         let cont = []
         const title = path.basename(filePath, '.md');
-        let poz= Object.values(result.matchData.metadata)[0].content.position;
+        let poz = Object.values(result.matchData.metadata)[0]
+        console.log(poz)
+        if (poz !== undefined)
+            poz =  Object.values(poz)[0].position;
 
         // console.log(result.matchData.metadata.markdown.content.position)
         if (poz !== undefined)
