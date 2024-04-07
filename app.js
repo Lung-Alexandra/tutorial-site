@@ -57,38 +57,36 @@ let data = []
 // Indexing function to create a Lunr.js index for search
 function createIndex() {
     return lunr(function () {
-        this.pipeline.remove(lunr.stopWordFilter)
-        this.ref('url');
+        this.pipeline.remove(lunr.stemmer)
+        this.ref('ind');
+        this.field('url');
         this.field('title');
         this.field('content');
-        this.tokenizer = function (obj, metadata) {
-            // let regex = /\w+/g;
-            // let matches = [...obj.matchAll(regex)];
-            let regex = /(?<!\[.)(?:\s+(?![^\[]*\]))+/gm
-            let matches = obj.split(regex).filter(sir => !/^#+$/.test(sir));
-            let tokens = [];
-
-            matches.forEach(match => {
-                const ind = tokens.length
-                // let str = match[0];
-                let str = match;
-
-                let tokenMetadata = lunr.utils.clone(metadata) || {}
-                tokenMetadata["position"] = ind
-
-                tokens.push(new lunr.Token(str, tokenMetadata))
-
-            });
-            // console.log(tokens)
-            return tokens
-        }
-        this.metadataWhitelist = ['position']
+        this.field('surrounding');
+        let ind = 0;
         fileStructure.forEach(file => {
             if (file.endsWith('.md')) {
                 const markdown = fs.readFileSync(__dirname + file, 'utf8');
                 const title = path.basename(file, '.md');
-                this.add({url: file, title: title, content: markdown});
-                data.push({title: title, context: this.tokenizer(markdown).map(d => d.str)});
+
+                let lines = markdown.split('\n').filter(line => line.trim() !== '');
+                lines = lines.map(line => line.trim())
+                for (let line = 0; line < lines.length; line++) {
+                    let context = "";
+                    if (line === 0 || line === lines.length - 1) {
+                        context = (line === 0 ? "" : lines[line - 1] + " \n ") + lines[line] + (line === lines.length - 1 ? "" : " \n " + lines[line + 1]);
+                    } else {
+                        context = lines.slice(line - 1, line + 2).join(" \n ");
+                    }
+                    // console.log("-----------------")
+                    // console.log(context)
+                    // console.log("-----------------")
+                    this.add({ ind: ind, content: lines[line], surrounding: context });
+                    data.push({id:ind, url:file,title:title,line:lines[line],context:context})
+                    ind++;
+                }
+
+                // data.push({title: title, context: this.tokenizer(markdown).map(d => d.str)});
             }
         });
     });
@@ -171,33 +169,21 @@ app.get('/', (req, res) => {
 // Search endpoint
 app.get('/search', (req, res) => {
     const query = req.query.searchKeyword || '';
-    const results = index.search(query);
+    const results = index.search("content:"+query);
+// console.log(results)
+    const searchResults = results.reduce((acc, result) => {
+        const info = data.find(item => item.id === parseInt(result.ref));
+        const existingItemIndex = acc.findIndex(item => item.title === info.title);
 
-    const searchResults = results.map(result => {
-        const filePath = result.ref;
+        if (existingItemIndex === -1) {
+            acc.push({ title: info.title, url: info.url, context: [marked.marked(info.context.replaceAll("#",""))] });
+        } else {
+            acc[existingItemIndex].context.push(marked.marked(info.context.replaceAll("#","")));
+        }
 
-        let cont = []
-        const title = path.basename(filePath, '.md');
-        let poz = Object.values(result.matchData.metadata)[0]
-        // console.log(poz)
-        if (poz !== undefined)
-            poz =  Object.values(poz)[0].position;
+        return acc;
+    }, []);
 
-        // console.log(result.matchData.metadata.markdown.content.position)
-        if (poz !== undefined)
-            poz.forEach(ind => {
-                const content = data.find(item => item.title === title).context
-                // console.log(content)
-                //get context
-                const windowSize = 4;
-                const start = ind - windowSize >= 0 ? ind - windowSize : 0
-                const end = ind + windowSize + 1 < content.length ? ind + windowSize + 1 : data.length
-                const context = "..." + content.slice(start, end).join(" ").replace('#', '') + "..."
-                cont.push(marked.marked(context));
-            })
-
-        return {title, url: filePath.replace('.md', ''), context: cont};
-    });
     res.render('search', {title: 'Search Results', term: query, results: searchResults});
 });
 
