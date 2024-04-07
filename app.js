@@ -52,25 +52,43 @@ const fileStructure = getFileStructure(__dirname + '/tutorial');
 //rutele pt directoare
 let routes = getRoutes(fileStructure);
 
-const data = []
+let data = []
 
 // Indexing function to create a Lunr.js index for search
 function createIndex() {
     return lunr(function () {
+        this.pipeline.remove(lunr.stopWordFilter)
         this.ref('url');
         this.field('title');
         this.field('content');
-        // this.pipeline.add(lunr.trimmer, lunr.stemmer);
-        // this.searchPipeline.add(lunr.stemmer)
-        this.tokenizer.separator = /(?:[_/]|\s|-)/;
+        this.tokenizer = function (obj, metadata) {
+            // let regex = /\w+/g;
+            // let matches = [...obj.matchAll(regex)];
+            let regex = /(?<!\[.)(?:\s+(?![^\[]*\]))+/gm
+            let matches = obj.split(regex).filter(sir => !/^#+$/.test(sir));
+            let tokens = [];
+
+            matches.forEach(match => {
+                const ind = tokens.length
+                // let str = match[0];
+                let str = match;
+
+                let tokenMetadata = lunr.utils.clone(metadata) || {}
+                tokenMetadata["position"] = ind
+
+                tokens.push(new lunr.Token(str, tokenMetadata))
+
+            });
+            // console.log(tokens)
+            return tokens
+        }
         this.metadataWhitelist = ['position']
         fileStructure.forEach(file => {
             if (file.endsWith('.md')) {
                 const markdown = fs.readFileSync(__dirname + file, 'utf8');
                 const title = path.basename(file, '.md');
-                data.push({title: title, content: lunr.tokenizer(markdown)});
                 this.add({url: file, title: title, content: markdown});
-
+                data.push({title: title, context: this.tokenizer(markdown).map(d => d.str)});
             }
         });
     });
@@ -79,7 +97,7 @@ function createIndex() {
 // Create the Lunr.js index
 const index = createIndex();
 // fs.writeFileSync('index.json', JSON.stringify(index));
-fs.writeFileSync('data.json', JSON.stringify(data));
+// fs.writeFileSync('data.json', JSON.stringify(data));
 
 // Configurare pentru a folosi Nunjucks pentru sabloane
 nunjucks.configure('views', {
@@ -156,23 +174,22 @@ app.get('/search', (req, res) => {
     const results = index.search(query);
 
     const searchResults = results.map(result => {
-        const cont = []
         const filePath = result.ref;
+        let cont = []
         const title = path.basename(filePath, '.md');
-        const content = data.find(item => item.title === title).content
-        // const ind = content.findIndex(token => token.str === query);
-        const ind = content.reduce(function (a, token, i) {
-            if (token.str === query)
-                a.push(i);
-            return a;
-        }, []);
-        ind.forEach(ind => {
+        const poz = result.matchData.metadata.markdown.content.position
+        // console.log(result.matchData.metadata.markdown.content.position)
+        poz.forEach(ind => {
+            const content = data.find(item => item.title === title).context
+            // console.log(content)
+            //get context
             const windowSize = 4;
             const start = ind - windowSize >= 0 ? ind - windowSize : 0
-            const end = ind + windowSize + 1 < content.length ? ind + windowSize + 1 : content.length
-            const context = content.slice(start, end).join(" ")
-            cont.push(context)
-        });
+            const end = ind + windowSize + 1 < content.length ? ind + windowSize + 1 : data.length
+            const context = "..." + content.slice(start, end).join(" ").replace('#', '') + "..."
+            cont.push(marked.marked(context));
+        })
+
         return {title, url: filePath.replace('.md', ''), context: cont};
     });
     res.render('search', {title: 'Search Results', term: query, results: searchResults});
