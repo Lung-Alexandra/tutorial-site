@@ -175,20 +175,23 @@ app.get('/search', (req, res) => {
 
     const searchResults = results.map(result => {
         const filePath = result.ref;
+
         let cont = []
         const title = path.basename(filePath, '.md');
-        const poz = result.matchData.metadata.markdown.content.position
+        let poz= Object.values(result.matchData.metadata)[0].content.position;
+
         // console.log(result.matchData.metadata.markdown.content.position)
-        poz.forEach(ind => {
-            const content = data.find(item => item.title === title).context
-            // console.log(content)
-            //get context
-            const windowSize = 4;
-            const start = ind - windowSize >= 0 ? ind - windowSize : 0
-            const end = ind + windowSize + 1 < content.length ? ind + windowSize + 1 : data.length
-            const context = "..." + content.slice(start, end).join(" ").replace('#', '') + "..."
-            cont.push(marked.marked(context));
-        })
+        if (poz !== undefined)
+            poz.forEach(ind => {
+                const content = data.find(item => item.title === title).context
+                // console.log(content)
+                //get context
+                const windowSize = 4;
+                const start = ind - windowSize >= 0 ? ind - windowSize : 0
+                const end = ind + windowSize + 1 < content.length ? ind + windowSize + 1 : data.length
+                const context = "..." + content.slice(start, end).join(" ").replace('#', '') + "..."
+                cont.push(marked.marked(context));
+            })
 
         return {title, url: filePath.replace('.md', ''), context: cont};
     });

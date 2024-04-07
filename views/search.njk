@@ -55,9 +55,10 @@
                                 {% for result in results %}
                                 <li>
                                     <h4 class="text-button"> <a href="{{ result.url }}">{{ result.title }} </a> </h4>
-                                    {% for cont in result.context %}
-                                    <p style="color: white"> {{cont| safe }}</p>
+                                    <ul>{% for cont in result.context %}
+                                    <li> {{cont| safe }}</li>
                                     {% endfor %}
+                                    </ul>
                                 </li>
 
                                 {% endfor %}
