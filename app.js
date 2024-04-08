@@ -59,10 +59,7 @@ function createIndex() {
     return lunr(function () {
         this.pipeline.remove(lunr.stemmer)
         this.ref('ind');
-        this.field('url');
-        this.field('title');
         this.field('content');
-        this.field('surrounding');
         let ind = 0;
         fileStructure.forEach(file => {
             if (file.endsWith('.md')) {
@@ -74,12 +71,12 @@ function createIndex() {
                 for (let line = 0; line < lines.length; line++) {
                     let context = "";
                     if (line === 0 || line === lines.length - 1) {
-                        context = (line === 0 ? "" : lines[line - 1] + " \n ") + lines[line] + (line === lines.length - 1 ? "" : " \n " + lines[line + 1]);
+                        context = (line === 0 ? " ... " : lines[line - 1] + " \n ") + lines[line] + (line === lines.length - 1 ? "" : " \n " + lines[line + 1] + " ... ");
                     } else {
-                        context = lines.slice(line - 1, line + 2).join(" \n ");
+                        context = lines.slice(line - 1, line + 2).join(" \n ")+" ... ";
                     }
 
-                    this.add({ ind: ind, content: lines[line], surrounding: context });
+                    this.add({ ind: ind, content: lines[line] });
                     data.push({id:ind, url:file.replace(".md",""),title:title,line:lines[line],context:context})
                     ind++;
                 }
@@ -167,8 +164,8 @@ app.get('/', (req, res) => {
 // Search endpoint
 app.get('/search', (req, res) => {
     const query = req.query.searchKeyword || '';
-    const results = index.search("content:"+query);
-// console.log(results)
+    const results = index.search(query);
+
     const searchResults = results.reduce((acc, result) => {
         const info = data.find(item => item.id === parseInt(result.ref));
         const existingItemIndex = acc.findIndex(item => item.title === info.title);
