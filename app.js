@@ -78,15 +78,13 @@ function createIndex() {
                     } else {
                         context = lines.slice(line - 1, line + 2).join(" \n ");
                     }
-                    // console.log("-----------------")
-                    // console.log(context)
-                    // console.log("-----------------")
+
                     this.add({ ind: ind, content: lines[line], surrounding: context });
-                    data.push({id:ind, url:file,title:title,line:lines[line],context:context})
+                    data.push({id:ind, url:file.replace(".md",""),title:title,line:lines[line],context:context})
                     ind++;
                 }
 
-                // data.push({title: title, context: this.tokenizer(markdown).map(d => d.str)});
+
             }
         });
     });
