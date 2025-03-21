@@ -11,7 +11,7 @@ const lunr = require('lunr');
 const PORT = process.env.PORT || 3000;
 
 function* walkSync(dir) {
-    const files = fs.readdirSync(dir, {withFileTypes: true});
+    const files = fs.readdirSync(dir, { withFileTypes: true });
     for (const file of files) {
         if (file.isDirectory()) {
             yield* walkSync(path.join(dir, file.name));
@@ -73,11 +73,11 @@ function createIndex() {
                     if (line === 0 || line === lines.length - 1) {
                         context = (line === 0 ? " ... " : lines[line - 1] + " \n ") + lines[line] + (line === lines.length - 1 ? "" : " \n " + lines[line + 1] + " ... ");
                     } else {
-                        context = lines.slice(line - 1, line + 2).join(" \n ")+" ... ";
+                        context = lines.slice(line - 1, line + 2).join(" \n ") + " ... ";
                     }
 
                     this.add({ ind: ind, content: lines[line] });
-                    data.push({id:ind, url:file.replace(".md",""),title:title,line:lines[line],context:context})
+                    data.push({ id: ind, url: file.replace(".md", ""), title: title, line: lines[line], context: context })
                     ind++;
                 }
 
@@ -157,7 +157,7 @@ app.use(function (req, res, next) {
 
 // routes
 app.get('/', (req, res) => {
-    res.render('index', {title: 'Home'});
+    res.render('index', { title: 'Home' });
 });
 
 
@@ -171,15 +171,15 @@ app.get('/search', (req, res) => {
         const existingItemIndex = acc.findIndex(item => item.title === info.title);
 
         if (existingItemIndex === -1) {
-            acc.push({ title: info.title, url: info.url, context: [marked.marked(info.context.replaceAll("#",""))] });
+            acc.push({ title: info.title, url: info.url, context: [marked.marked(info.context.replaceAll("#", ""))] });
         } else {
-            acc[existingItemIndex].context.push(marked.marked(info.context.replaceAll("#","")));
+            acc[existingItemIndex].context.push(marked.marked(info.context.replaceAll("#", "")));
         }
 
         return acc;
     }, []);
 
-    res.render('search', {title: 'Search Results', term: query, results: searchResults});
+    res.render('search', { title: 'Search Results', term: query, results: searchResults });
 });
 
 fileStructure.forEach(file => {
@@ -190,7 +190,7 @@ fileStructure.forEach(file => {
         app.get(route, (req, res) => {
             const namefile = route.split('/').pop().replace(/\.md$/, '').replace(/[-_]/g, ' ');
             res.locals.nameFile = namefile.charAt(0).toUpperCase() + namefile.slice(1);
-            res.render('tutorial', {title: 'Tutorial', source: filepath});
+            res.render('tutorial', { title: 'Tutorial', source: filepath });
         });
     }
 });
@@ -198,18 +198,18 @@ fileStructure.forEach(file => {
 
 routes.forEach(route => {
     app.get(route, (req, res) => {
-        res.render('tutorial', {title: 'Tutorial'});
+        res.render('tutorial', { title: 'Tutorial' });
     });
 });
 
 app.get('/tutorial', (req, res) => {
-    res.render('tutorial', {title: 'Tutorial'});
+    res.render('tutorial', { title: 'Tutorial' });
 
 });
 
 
 app.get('/materials', (req, res) => {
-    res.render('materials', {title: 'Materials'});
+    res.render('materials', { title: 'Materials' });
 });
 
 
