@@ -4,7 +4,6 @@
 La începutul fișierului `main.cpp`, vom include câteva librării și clase 
 care ne vor ajuta în crearea unei aplicații OpenGL:
 ```cpp
-#include <windows.h> 
 #include <GL/glew.h> 
 #include <GL/freeglut.h>
 #include "Shader.h"
