@@ -24,7 +24,7 @@ vârfuri (vertex), shader-e și logica de randare.
 #### Constructor:
 - Inițializează buffer-ele și VAO-ul, setând starea OpenGL necesară pentru randare.
 
-#### Metoda de randare:
+#### Metoda pentru randare:
 - Randază obiectul prin legarea buffer-elor necesare și apelarea funcțiilor OpenGL pentru desenare.
 
 #### Destructor:
