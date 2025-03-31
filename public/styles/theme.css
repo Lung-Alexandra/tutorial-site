@@ -259,7 +259,7 @@ header .container {
 pre code.hljs {
   display: block;
   overflow-x: auto;
-  padding: 0.5em;
+  padding: 0;
   background: var(--code-bg);
   color: var(--code-color);
 }

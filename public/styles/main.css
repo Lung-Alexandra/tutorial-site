@@ -318,14 +318,14 @@ footer {
 
 .tutorial-content pre {
   background-color: #f5f5f5;
-  padding: 1rem;
+  padding: 0 1rem;
   border-radius: 4px;
   overflow: auto;
 }
 
 .tutorial-content code {
   background-color: #f5f5f5;
-  padding: 0.2rem 0.4rem;
+  padding: 0.0rem 0.4rem;
   border-radius: 3px;
   font-family: monospace;
 }
