@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Layout from '../components/Layout';
 import Link from 'next/link';
 import { getNavigation } from '../lib/navigation';
+import {Button, Grid} from "@mui/material";
 
 // Funcție pentru evidențierea termenului căutat
 function highlightSearchTerm(text, searchTerm) {
@@ -106,11 +107,14 @@ export default function Search({ navigation, initialResults = [], initialQuery =
                                             ))}
                                         </div>
 
-                                        <div className="result-url">
-                                            <Link href={result.url} legacyBehavior>
-                                                <a>{result.url}</a>
-                                            </Link>
-                                        </div>
+                                        <Grid container justifyContent="flex-end" spacing={2}>
+                                            <Button variant="contained">
+                                                <Link href={result.url} legacyBehavior>
+                                                    <a>Către documentație</a>
+                                                </Link>
+                                            </Button>
+                                        </Grid>
+
                                     </div>
                                 ))}
                             </div>
