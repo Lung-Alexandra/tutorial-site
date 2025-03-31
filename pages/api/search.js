@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { marked } from 'marked';
+import {parseFilename} from "../../util/FileUtils";
 
 // Calea către directorul cu tutoriale
 const tutorialDir = path.join(process.cwd(), 'tutorial');
@@ -42,7 +43,7 @@ function buildSearchIndex() {
                         // Stocăm conținutul pentru extragerea contextului mai târziu
                         contentCache[urlPath] = {
                             content: plainText,
-                            title: data.title || file.replace(/\.mdx?$/, '')
+                            title: parseFilename(file)
                         };
 
                         // Indexăm fiecare cuvânt din conținut
