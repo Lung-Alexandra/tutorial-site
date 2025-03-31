@@ -84,7 +84,6 @@ const Navigation = ({ nav }) => {
                             <li key={value.path} className={isActive ? 'active' : ''}>
                                 <Link href={value.path} legacyBehavior>
                                     <a>
-                                        <span className="file-icon">📄</span>
                                         {name}
                                     </a>
                                 </Link>
