@@ -108,6 +108,7 @@ header .container {
 
 .main-nav a.active {
   color: var(--active-link) !important;
+  border-bottom: 2px solid var(--primary-color);
 }
 
 .container {
