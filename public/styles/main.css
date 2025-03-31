@@ -121,10 +121,6 @@ main.content {
   z-index: 99;
 }
 
-.sidebar-content {
-  padding: 0.5rem;
-}
-
 .sidebar h2 {
   margin-top: 0;
   margin-bottom: 1rem;
