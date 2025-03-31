@@ -33,7 +33,6 @@ main.content {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1rem;
 }
 
 .main-header .container {
@@ -44,6 +43,7 @@ main.content {
 }
 
 .main-nav {
+  padding: 1rem 0;
   display: flex;
   align-items: center;
 }
@@ -63,6 +63,13 @@ main.content {
 .main-nav a.active {
   font-weight: bold;
   border-bottom: 2px solid white;
+}
+
+.main-nav .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
 }
 
 .logo {
