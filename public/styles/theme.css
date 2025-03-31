@@ -37,6 +37,7 @@ body[data-theme="light"] {
   --button-hover: #d0d0d0;
   --search-bg: #fff;
   --container-bg: #ffffff;
+  --input-bg: #ffffff;
 }
 
 body {
@@ -686,126 +687,106 @@ body[data-theme="light"] .markdown-content blockquote > blockquote {
 }
 
 /* Stilizare pentru operatorii din cod (inclusiv >) */
-.hljs-operator,
-.hljs-punctuation,
-.language-cpp .hljs-operator,
-.language-cpp .hljs-punctuation {
-  color: #abb2bf !important; /* Culoare neutră pentru operatori în tema dark */
-}
+/*.hljs-operator,*/
+/*.hljs-punctuation,*/
+/*.language-cpp .hljs-operator,*/
+/*.language-cpp .hljs-punctuation {*/
+/*  color: #abb2bf !important; !* Culoare neutră pentru operatori în tema dark *!*/
+/*}*/
 
-body[data-theme="light"] .hljs-operator,
-body[data-theme="light"] .hljs-punctuation,
-body[data-theme="light"] .language-cpp .hljs-operator,
-body[data-theme="light"] .language-cpp .hljs-punctuation {
-  color: #333 !important; /* Culoare neutră pentru operatori în tema light */
-}
+/*body[data-theme="light"] .hljs-operator,*/
+/*body[data-theme="light"] .hljs-punctuation,*/
+/*body[data-theme="light"] .language-cpp .hljs-operator,*/
+/*body[data-theme="light"] .language-cpp .hljs-punctuation {*/
+/*  color: #333 !important; !* Culoare neutră pentru operatori în tema light *!*/
+/*}*/
 
 /* Override pentru caracterele speciale în blocurile de cod */
-code .token.operator,
-code .token.entity,
-code .token.url,
-code .token.string,
-code .token.variable,
-code .token.punctuation {
-  background: transparent !important;
-  color: inherit !important;
-}
+/*code .token.operator,*/
+/*code .token.entity,*/
+/*code .token.url,*/
+/*code .token.string,*/
+/*code .token.variable,*/
+/*code .token.punctuation {*/
+/*  background: transparent !important;*/
+/*  color: inherit !important;*/
+/*}*/
 
 /* Reparam stilurile markdown pentru toate mediile și ecranele */
-.markdown-content pre,
-.markdown-content code,
-.markdown-content pre code {
-  background-color: var(--code-bg) !important;
-  color: var(--code-color) !important;
-  border-radius: 4px;
-  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
-}
+/*.markdown-content pre,*/
+/*.markdown-content code,*/
+/*.markdown-content pre code {*/
+/*  background-color: var(--code-bg) !important;*/
+/*  color: var(--code-color) !important;*/
+/*  border-radius: 4px;*/
+/*  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;*/
+/*}*/
 
-.markdown-content pre > code {
-  border: none;
-  padding: 0;
-  background-color: transparent !important;
-}
+/*.markdown-content pre > code {*/
+/*  border: none;*/
+/*  padding: 0;*/
+/*  background-color: transparent !important;*/
+/*}*/
 
-/* Override pentru a repara stilurile inconsistente în blocurile de cod */
-html .hljs,
-html code,
-html pre,
-html[data-theme] .hljs,
-html[data-theme] code,
-html[data-theme] pre,
-body .hljs,
-body code,
-body pre,
-body[data-theme] .hljs,
-body[data-theme] code,
-body[data-theme] pre {
-  background-color: var(--code-bg) !important;
-  color: var(--code-color) !important;
-  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
-}
+/* Override pentru a repara stilurile inconsistente în blocurile de cod*/
+/*html .hljs,*/
+/*html code,*/
+/*html pre,*/
+/*html[data-theme] .hljs,*/
+/*html[data-theme] code,*/
+/*html[data-theme] pre,*/
+/*body .hljs,*/
+/*body code,*/
+/*body pre,*/
+/*body[data-theme] .hljs,*/
+/*body[data-theme] code,*/
+/*body[data-theme] pre {*/
+/*  background-color: var(--code-bg) !important;*/
+/*  color: var(--code-color) !important;*/
+/*  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;*/
+/*}*/
 
-/* Override pentru stiluri highlight.js pentru ambele teme */
-.hljs-operator,
-.hljs-punctuation,
-.hljs-subst {
-  color: #abb2bf !important;
-}
+/*!* Override pentru stiluri highlight.js pentru ambele teme *!*/
+/*.hljs-operator,*/
+/*.hljs-punctuation,*/
+/*.hljs-subst {*/
+/*  color: red !important;*/
+/*}*/
 
-body[data-theme="light"] .hljs-operator,
-body[data-theme="light"] .hljs-punctuation,
-body[data-theme="light"] .hljs-subst {
-  color: #383a42 !important;
-}
+/*body[data-theme="light"] .hljs-operator,*/
+/*body[data-theme="light"] .hljs-punctuation,*/
+/*body[data-theme="light"] .hljs-subst {*/
+/*  color: red !important;*/
+/*}*/
 
 /* Override puternic pentru header și navigare - FIXAT */
-body, 
-body.dark-theme,
-html[data-theme="dark"] body,
-body[data-theme="dark"] {
+body {
   background-color: var(--bg-color) !important;
   color: var(--text-color) !important;
 }
 
-body header,
-html[data-theme="dark"] header,
-body[data-theme="dark"] header,
 header {
   background-color: var(--header-bg) !important;
   color: var(--text-color) !important;
   border-bottom: 1px solid var(--border-color) !important;
 }
 
-body .main-nav,
-html[data-theme="dark"] .main-nav,
-body[data-theme="dark"] .main-nav,
 .main-nav {
   background-color: var(--header-bg) !important;
 }
 
-body .container,
-html[data-theme="dark"] .container,
-body[data-theme="dark"] .container,
 .container {
   background-color: var(--container-bg) !important;
 }
 
-/* Override pentru containerul din header */
-header .container {
-  background-color: var(--header-bg) !important;
-}
 
-/* Forțăm culoarea textului în elementele body și html */
-body, html {
-  color: var(--text-color);
-}
 
 /* Override pentru tema light */
-body[data-theme="light"] header,
-html[data-theme="light"] header,
-body.light-theme header {
-  background-color: var(--header-bg) !important;
-}
+/*body[data-theme="light"] header,*/
+/*html[data-theme="light"] header,*/
+/*body.light-theme header {*/
+/*  background-color: var(--header-bg) !important;*/
+/*}*/
 
 /* Stiluri pentru expand/collapse folder structure */
 
@@ -882,18 +863,18 @@ body.light-theme header {
 }
 
 /* Stiluri generale pentru tema întunecată */
-body.dark-theme {
+body {
   background-color: var(--bg-color);
   color: var(--text-color);
 }
 
 /* Stilizare header */
-body.dark-theme .main-header {
+body .main-header {
   background-color: var(--header-bg) !important;
   border-bottom: 1px solid var(--border-color) !important;
 }
 
-body.dark-theme .main-nav .container {
+body .main-nav .container {
   background-color: var(--header-bg) !important;
 }
 
@@ -902,146 +883,146 @@ body .logo {
   color: var(--text-color) !important;
 }
 
-body.dark-theme .nav-links a,
-body.dark-theme .nav-tools * {
+body .nav-links a,
+body .nav-tools * {
   color: var(--text-color) !important;
 }
 
 /* Stilizare căutare */
-body.dark-theme .search input {
+body .search input {
   background-color: var(--input-bg) !important;
   border-color: var(--border-color) !important;
   color: var(--text-color) !important;
 }
 
-body.dark-theme .search button svg path {
+body .search button svg path {
   fill: var(--text-color) !important;
 }
 
 /* Stilizare sidebar */
-body.dark-theme .sidebar {
+body .sidebar {
   background-color: var(--sidebar-bg) !important;
   border-right: 1px solid var(--border-color) !important;
 }
 
-body.dark-theme .sidebar h2 {
+body .sidebar h2 {
   color: var(--text-color) !important;
 }
 
-body.dark-theme .nav-list a {
+body .nav-list a {
   color: var(--text-color) !important;
 }
 
-body.dark-theme .folder-name {
+body .folder-name {
   color: var(--text-color) !important;
 }
 
-body.dark-theme .nav-list a:hover,
-body.dark-theme .folder-name:hover {
+body .nav-list a:hover,
+body .folder-name:hover {
   background-color: var(--sidebar-hover) !important;
 }
 
-body.dark-theme .nav-list a.active {
+body .nav-list a.active {
   color: var(--primary-color) !important;
   font-weight: 600 !important;
 }
 
 /* Stilizare conținut */
-body.dark-theme .content {
+body .content {
   background-color: var(--bg-color) !important;
 }
 
 /* Stilizare link-uri */
-body.dark-theme a {
+body a {
   color: var(--primary-color) !important;
 }
 
 /* Stilizare carduri și containere */
-body.dark-theme .tutorial-card,
-body.dark-theme .search-snippet,
-body.dark-theme .result-item,
-body.dark-theme .cta-section {
+body .tutorial-card,
+body .search-snippet,
+body .result-item,
+body .cta-section {
   background-color: var(--card-bg) !important;
   border-color: var(--border-color) !important;
 }
 
 /* Stilizare cod */
-body.dark-theme pre,
-body.dark-theme code {
+body pre,
+body code {
   background-color: var(--code-bg) !important;
   color: #f8f8f2 !important;
 }
 
 /* Stilizare footer */
-body.dark-theme footer {
+body footer {
   background-color: var(--header-bg) !important;
   border-top: 1px solid var(--border-color) !important;
   color: var(--text-secondary) !important;
 }
 
 /* Stilizare butoane */
-body.dark-theme .btn.primary {
+body .btn.primary {
   background-color: var(--primary-color) !important;
   color: white !important;
 }
 
-body.dark-theme .btn.primary:hover {
+body .btn.primary:hover {
   background-color: var(--primary-dark) !important;
 }
 
 /* Stilizare input-uri */
-body.dark-theme input,
-body.dark-theme textarea,
-body.dark-theme select {
+body input,
+body textarea,
+body select {
   background-color: var(--input-bg) !important;
   border-color: var(--border-color) !important;
   color: var(--text-color) !important;
 }
 
 /* Stilizare tabele */
-body.dark-theme table {
+body table {
   border-color: var(--border-color) !important;
 }
 
-body.dark-theme th,
-body.dark-theme td {
+body th,
+body td {
   border-color: var(--border-color) !important;
 }
 
-body.dark-theme th {
+body th {
   background-color: var(--sidebar-bg) !important;
 }
 
-body.dark-theme tr:nth-child(even) {
+body tr:nth-child(even) {
   background-color: rgba(255, 255, 255, 0.03) !important;
 }
 
 /* Stilizare blockquote */
-body.dark-theme blockquote {
+body blockquote {
   background-color: var(--card-bg) !important;
   border-left-color: var(--primary-color) !important;
 }
 
-/* Stiluri pentru navigare și sidebar în modul dark */
-[data-theme="dark"] .sidebar {
+/* Stiluri pentru navigare și sidebar*/
+.sidebar {
   background-color: var(--sidebar-bg);
   border-right-color: var(--border-color);
 }
 
-[data-theme="dark"] .nav-list a {
+.nav-list a {
   color: var(--text-color);
 }
 
-[data-theme="dark"] .nav-list a:hover {
+.nav-list a:hover {
   background-color: var(--sidebar-hover);
 }
 
-[data-theme="dark"] .nav-list li.active:not(.nav-category) a {
+.nav-list li.active:not(.nav-category) a {
   background-color: rgba(92, 156, 230, 0.1);
   color: var(--active-link);
 }
 
-[data-theme="dark"] .folder-name {
+.folder-name {
   color: var(--text-color);
 }
 

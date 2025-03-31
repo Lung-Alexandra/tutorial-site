@@ -12,7 +12,7 @@ export default function Document() {
                 <link rel="stylesheet" href="/styles/main.css" />
 
                 {/* Tema dark - pusă ultimă pentru a avea prioritate */}
-                <link rel="stylesheet" href="/styles/dark-theme.css" />
+                <link rel="stylesheet" href="/styles/theme.css" />
 
                 {/* Highlight.js CSS - pentru code highlighting (temă dark) */}
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css" />
