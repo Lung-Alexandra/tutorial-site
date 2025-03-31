@@ -13,7 +13,7 @@
 
 h1, h4, h2, h3, h6 {
     margin: 2px;
-    color: var(--nav-text-col);
+    color: var(--text-color);
 }
 
 .col-lg-3 {
