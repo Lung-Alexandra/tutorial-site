@@ -898,7 +898,7 @@ body.dark-theme .main-nav .container {
 }
 
 /* Stilizare logo și navigare */
-body.dark-theme .logo {
+body .logo {
   color: var(--text-color) !important;
 }
 
