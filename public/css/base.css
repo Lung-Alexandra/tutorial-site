@@ -45,6 +45,10 @@ ul, li {
     margin: 0;
 }
 
+.tutorial-content ul, li {
+    margin-inline-start: 16px;
+}
+
 header, nav, section, article, aside, footer, hgroup {
     display: block;
 }
@@ -78,9 +82,6 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
 }
 
-ul {
-    margin-bottom: 0px;
-}
 
 p {
     font-size: 15px;
