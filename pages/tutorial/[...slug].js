@@ -22,7 +22,6 @@ export default function TutorialPage({ mdxSource, frontmatter, slug, navigation 
     return (
         <Layout nav={navigation} metadata={metadata}>
             <article className="tutorial-content">
-                <h1>{pageTitle}</h1>
                 {mdxSource && <MDXRemote {...mdxSource} />}
             </article>
         </Layout>
