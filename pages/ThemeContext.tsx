@@ -20,13 +20,19 @@ export const useTheme = () => {
 
 export const ThemeProvider = ({ children }) => {
     const [theme, setTheme] = useState<PaletteMode>('light');
+    const [isThemeLoaded, setIsThemeLoaded] = useState<boolean>(false);
 
     useEffect(() => {
         const savedTheme = localStorage.getItem('theme') as PaletteMode;
         if (savedTheme) {
             setTheme(savedTheme);
         }
+        setIsThemeLoaded(true); // Indicate that the theme is loaded
     }, []);
+
+    if (!isThemeLoaded) {
+        return null;
+    }
 
     const toggleTheme = () => {
         const newTheme = theme === 'light' ? 'dark' : 'light';
