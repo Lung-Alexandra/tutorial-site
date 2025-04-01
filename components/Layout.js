@@ -3,45 +3,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Navigation from './Navigation';
+import ThemeToggleButton from "./ThemeToggleButton";
 
 export default function Layout({ children, nav, metadata }) {
     const router = useRouter();
     const [searchTerm, setSearchTerm] = useState('');
-    const [darkMode, setDarkMode] = useState(false);
-
-    // Efect pentru a seta tema inițială
-    useEffect(() => {
-        // Verifică dacă există o temă salvată în localStorage
-        const savedTheme = localStorage.getItem('darkMode');
-        if (savedTheme) {
-            setDarkMode(savedTheme === 'true');
-        } else {
-            // Verifică preferințele sistemului
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            setDarkMode(prefersDark);
-        }
-    }, []);
-
-    // Efect pentru a aplica tema
-    useEffect(() => {
-        // Aplică tema la body și html
-        if (darkMode) {
-            document.body.setAttribute('data-theme', 'dark');
-            document.documentElement.setAttribute('data-theme', 'dark');
-            document.body.classList.add('dark-theme'); // pentru compatibilitate
-        } else {
-            document.body.setAttribute('data-theme', 'light');
-            document.documentElement.setAttribute('data-theme', 'light');
-            document.body.classList.remove('dark-theme');
-        }
-        // Salvează preferințele
-        localStorage.setItem('darkMode', darkMode);
-    }, [darkMode]);
-
-    // Toggle pentru tema dark/light
-    const toggleTheme = () => {
-        setDarkMode(!darkMode);
-    };
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -91,9 +57,10 @@ export default function Layout({ children, nav, metadata }) {
                                 </svg>
                             </button>
                         </form>
-                        <button className="theme-toggle" onClick={toggleTheme}>
-                            {darkMode ? '☀️' : '🌙'}
-                        </button>
+                        {/*<button className="theme-toggle" onClick={toggleTheme}>*/}
+                        {/*    {darkMode ? '☀️' : '🌙'}*/}
+                        {/*</button>*/}
+                        <ThemeToggleButton/>
                     </div>
                 </div>
             </header>
