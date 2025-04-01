@@ -87,11 +87,13 @@ export default function Search({ navigation, initialResults = [], initialQuery =
                     ) : results.length > 0 ? (
                         <>
                             <p className="results-count">Found {results.length} document(s) for "{searchTerm}"</p>
-                            <div className="results-list">
+                            <Grid container spacing={4}>
                                 {results.map((result, index) => (
-                                    <ResultCard state={new ResultCardState(result, searchTerm)} key={index}/>
+                                    <Grid size={12}>
+                                        <ResultCard state={new ResultCardState(result, searchTerm)} key={index}/>
+                                    </Grid>
                                 ))}
-                            </div>
+                            </Grid>
                         </>
                     ) : searchTerm ? (
                         <p className="no-results">No results found for "{searchTerm}"</p>

@@ -32,7 +32,7 @@ body[data-theme="light"] {
   --code-bg: #f0f0f0;
   --code-color: #333;
   --border-color: #ddd;
-  --card-bg: #fff;
+  --card-bg: #ddd;
   --button-bg: #e0e0e0;
   --button-hover: #d0d0d0;
   --search-bg: #fff;
@@ -226,16 +226,16 @@ header .container {
 }
 
 /* Code blocks with dark styling - îmbunătățit și corectate pentru a respecta tema */
-.markdown-content pre {
-  background-color: var(--code-bg) !important;
-  color: var(--code-color) !important;
-  padding: 1rem;
-  border-radius: 5px;
-  overflow: auto;
-  margin: 1.5rem 0;
-  border: 1px solid var(--border-color);
-  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
-}
+/*.markdown-content pre {*/
+/*  background-color: var(--code-bg) !important;*/
+/*  color: var(--code-color) !important;*/
+/*  padding: 1rem;*/
+/*  border-radius: 5px;*/
+/*  overflow: auto;*/
+/*  margin: 1.5rem 0;*/
+/*  border: 1px solid var(--border-color);*/
+/*  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;*/
+/*}*/
 
 .markdown-content code {
   background-color: var(--code-bg) !important;
@@ -255,13 +255,13 @@ header .container {
 }
 
 /* Îmbunătățit pentru C++ si alte limbaje */
-pre code.hljs {
-  display: block;
-  overflow-x: auto;
-  padding: 0;
-  background: var(--code-bg);
-  color: var(--code-color);
-}
+/*pre code.hljs {*/
+/*  display: block;*/
+/*  overflow-x: auto;*/
+/*  padding: 0;*/
+/*  background: var(--code-bg);*/
+/*  color: var(--code-color);*/
+/*}*/
 
 /* Tables */
 .markdown-content table {
@@ -582,24 +582,24 @@ body[data-theme="light"] .hljs-built_in {
 
 /* Code blocks specific styling */
 /* Asigurăm că blocurile de cod highlight.js respectă tema */
-.hljs {
-  display: block;
-  overflow-x: auto;
-  padding: 0.5em;
-  color: var(--code-color) !important;
-  background: var(--code-bg) !important;
-}
+/*.hljs {*/
+/*  display: block;*/
+/*  overflow-x: auto;*/
+/*  padding: 0.5em;*/
+/*  color: var(--code-color) !important;*/
+/*  background: var(--code-bg) !important;*/
+/*}*/
 
 /* Forțăm tema dark pentru blocurile de cod */
-code, pre {
-  color: var(--code-color) !important;
-  background-color: var(--code-bg) !important;
-}
+/*code, pre {*/
+/*  color: var(--code-color) !important;*/
+/*  background-color: var(--code-bg) !important;*/
+/*}*/
 
 /* Ajustări specifice pentru tema light */
-body[data-theme="light"] pre,
-body[data-theme="light"] code,
-body[data-theme="light"] .hljs {
+/*body[data-theme="light"] pre,*/
+/*body[data-theme="light"] code,*/
+.hljs {
   color: var(--code-color) !important;
   background-color: var(--code-bg) !important;
 }
@@ -611,11 +611,11 @@ body[data-theme="light"] .hljs {
 }
 
 /* Asigurăm că tema se aplică corect la toate componentele care conțin cod */
-html[data-theme="light"] pre,
-html[data-theme="light"] code,
-html[data-theme="light"] .hljs,
-html[data-theme="dark"] pre,
-html[data-theme="dark"] code,
+/*html[data-theme="light"] pre,*/
+/*html[data-theme="light"] code,*/
+/*html[data-theme="light"] .hljs,*/
+/*html[data-theme="dark"] pre,*/
+/*html[data-theme="dark"] code,*/
 html[data-theme="dark"] .hljs {
   color: var(--code-color) !important;
   background-color: var(--code-bg) !important;
@@ -941,11 +941,11 @@ body .cta-section {
 }
 
 /* Stilizare cod */
-body pre,
-body code {
-  background-color: var(--code-bg) !important;
-  color: #f8f8f2 !important;
-}
+/*body pre,*/
+/*body code {*/
+/*  !*background-color: var(--code-bg) !important;*!*/
+/*  color: #f8f8f2 !important;*/
+/*}*/
 
 /* Stilizare footer */
 body footer {

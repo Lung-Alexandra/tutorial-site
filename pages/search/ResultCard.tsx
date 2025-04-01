@@ -1,5 +1,5 @@
 import Link from "next/link";
-import {Button, Card, CardHeader, Grid} from "@mui/material";
+import {Button, Card, CardHeader, Grid, Typography} from "@mui/material";
 import {SearchResult} from "../search";
 
 export class ResultCardState {
@@ -27,21 +27,24 @@ export default function  ResultCard(
             />
 
 
-            <Grid container>
+            <Grid container spacing={4}>
                 {state.snippets.map((snippet, snippetIndex) => (
-                    <div
-                        key={snippetIndex}
-                        dangerouslySetInnerHTML={{
-                            __html: highlightSearchTerm(snippet, state.textToHighlight),
-                        }}
-                    />
+                    <Grid size={12}>
+                        <Typography
+                            variant={'body1'}
+                            key={snippetIndex}
+                            dangerouslySetInnerHTML={{
+                                __html: highlightSearchTerm(snippet, state.textToHighlight),
+                            }}
+                        />
+                    </Grid>
                 ))}
             </Grid>
 
             <Grid container justifyContent="flex-end" spacing={2}>
                 <Button variant="contained">
                     <Link href={state.url} legacyBehavior>
-                        <a>Către documentație</a>
+                        Către documentație
                     </Link>
                 </Button>
             </Grid>
