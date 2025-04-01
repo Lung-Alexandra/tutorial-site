@@ -4,19 +4,20 @@ import Layout from '../components/Layout';
 import Link from 'next/link';
 import { getNavigation } from '../lib/navigation';
 import {Button, Grid} from "@mui/material";
+import ResultCard, {ResultCardState} from "./search/ResultCard";
 
 // Funcție pentru evidențierea termenului căutat
-function highlightSearchTerm(text, searchTerm) {
-    if (!text || !searchTerm) return text;
 
-    const regex = new RegExp(`(${searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-    return text.replace(regex, '<mark>$1</mark>');
+export interface SearchResult {
+    title: string;
+    url: string;
+    snippets: string[];
 }
 
 export default function Search({ navigation, initialResults = [], initialQuery = '' }) {
     const router = useRouter();
-    const [searchTerm, setSearchTerm] = useState(initialQuery);
-    const [results, setResults] = useState(initialResults);
+    const [searchTerm, setSearchTerm] = useState<string>(initialQuery);
+    const [results, setResults] = useState<SearchResult[]>(initialResults);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
@@ -88,34 +89,7 @@ export default function Search({ navigation, initialResults = [], initialQuery =
                             <p className="results-count">Found {results.length} document(s) for "{searchTerm}"</p>
                             <div className="results-list">
                                 {results.map((result, index) => (
-                                    <div key={index} className="result-item">
-                                        <h2 className="result-title">
-                                            <Link href={result.url} legacyBehavior>
-                                                <a>{result.title}</a>
-                                            </Link>
-                                        </h2>
-
-                                        <div className="result-snippets">
-                                            {result.snippets.map((snippet, snippetIndex) => (
-                                                <div
-                                                    key={snippetIndex}
-                                                    className="search-snippet"
-                                                    dangerouslySetInnerHTML={{
-                                                        __html: highlightSearchTerm(snippet, searchTerm)
-                                                    }}
-                                                />
-                                            ))}
-                                        </div>
-
-                                        <Grid container justifyContent="flex-end" spacing={2}>
-                                            <Button variant="contained">
-                                                <Link href={result.url} legacyBehavior>
-                                                    <a>Către documentație</a>
-                                                </Link>
-                                            </Button>
-                                        </Grid>
-
-                                    </div>
+                                    <ResultCard state={new ResultCardState(result, searchTerm)} key={index}/>
                                 ))}
                             </div>
                         </>
