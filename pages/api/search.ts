@@ -8,8 +8,8 @@ import {parseFilename} from "../../util/FileUtils";
 const tutorialDir = path.join(process.cwd(), 'tutorial');
 
 // Index pentru căutare
-const searchIndex = {};
-const contentCache = {};
+const searchIndex: Record<string, string[]> = {};
+const contentCache: Record<string, { content: string; title: string }> = {};
 
 // Construim indexul de căutare
 function buildSearchIndex() {
@@ -49,7 +49,7 @@ function buildSearchIndex() {
                         // Indexăm fiecare cuvânt din conținut
                         plainText.split(/\s+/).forEach(word => {
                             if (word.length > 2) {
-                                if (!searchIndex[word]) {
+                                if (!Array.isArray(searchIndex[word])) {
                                     searchIndex[word] = [];
                                 }
 

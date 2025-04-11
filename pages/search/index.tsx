@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import Layout from '../../components/Layout';
 import { Alert, Box, Button, CircularProgress, Grid, TextField, Typography } from "@mui/material";
 import ResultCard, { ResultCardState } from "./ResultCard";
 import { getNavigation } from '../../lib/navigation';
+import Layout from '../../components/Layout.tsx';
 
 export interface SearchResult {
     title: string;
@@ -52,7 +52,7 @@ export default function SearchPage({ navigation, initialResults = [], initialQue
                 description: `Search results for "${searchTerm}" in our tutorials`,
             }}
         >
-            <Box sx={{ px: 3, py: 4 }}>
+            <Box sx={{ px: 3, py: 4, width: '100%' }}>
                 <Typography variant="h4" gutterBottom>Search Results</Typography>
 
                 <Box component="form" sx={{ display: 'flex', gap: 2 }} onSubmit={(e) => {
@@ -66,7 +66,9 @@ export default function SearchPage({ navigation, initialResults = [], initialQue
                         placeholder="Search tutorials..."
                         label="Search"
                     />
-                    <Button type="submit" variant="contained">Search</Button>
+                    <Button type="submit"  variant="contained">
+                        Search
+                    </Button>
                 </Box>
 
                 <Box>
