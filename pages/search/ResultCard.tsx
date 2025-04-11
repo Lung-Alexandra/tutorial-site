@@ -1,6 +1,6 @@
 import Link from "next/link";
 import {Button, Card, CardHeader, Grid, Typography} from "@mui/material";
-import {SearchResult} from "../search";
+import {SearchResult} from "./index";
 
 export class ResultCardState {
     title: string;
