@@ -1,8 +1,9 @@
-import Layout from '../components/layout/Layout';
+import Layout from "../../components/layout/Layout";
+import {getNavigation} from "../../lib/navigation";
 
-export default function Materials() {
+export default function Materials({navigation}) {
     return (
-        <Layout title="Materials">
+        <Layout nav={navigation} metadata={undefined}>
             <div className="container">
                 <h1>Materials</h1>
                 <p>Materials and resources for learning OpenGL.</p>
@@ -38,4 +39,10 @@ export default function Materials() {
             </div>
         </Layout>
     );
-} 
+}
+
+export async function getServerSideProps() {
+    const navigation = getNavigation();
+
+    return { props: { navigation } };
+}

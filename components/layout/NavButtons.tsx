@@ -22,7 +22,12 @@ export default function NavButtons({ pathname }) {
             <Link href="/tutorial" passHref>
                 <Button sx={linkStyle(pathname.startsWith('/tutorial'))}>
                     <Typography variant="body1">Tutorials</Typography>
-             </Button>
+                </Button>
+            </Link>
+            <Link href="/materials" passHref>
+                <Button sx={linkStyle(pathname.startsWith('/materials'))}>
+                    <Typography variant="body1">Materials</Typography>
+                </Button>
             </Link>
         </Box>
     );
