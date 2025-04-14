@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useTheme} from "../pages/ThemeContext";
+import {Button, IconButton, Tooltip} from "@mui/material";
+import {Brightness4, Brightness7} from '@mui/icons-material';
 
 const ThemeToggleButton = () => {
     const { theme, toggleTheme } = useTheme();
@@ -17,9 +19,11 @@ const ThemeToggleButton = () => {
     }, [theme]);
 
     return (
-        <button onClick={toggleTheme}>
-            Switch to {theme === 'light' ? 'Dark' : 'Light'} Mode
-        </button>
+        <Tooltip title={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} Mode`}>
+            <IconButton onClick={toggleTheme} color="inherit">
+                {theme === 'light' ? <Brightness4 /> : <Brightness7 />}
+            </IconButton>
+        </Tooltip>
     );
 };
 
