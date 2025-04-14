@@ -124,7 +124,7 @@ export default function Layout({ children, nav, metadata }) {
             {/* Footer */}
             <Box component="footer" sx={{ bgcolor: 'primary.main', py: 2 }}>
                 <Container sx={{ textAlign: 'center' }}>
-                    <Typography variant="body2" color="white">
+                    <Typography variant="body2">
                         &copy; {new Date().getFullYear()} Tutorial Site. All rights reserved.
                     </Typography>
                 </Container>
