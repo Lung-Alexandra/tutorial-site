@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
-import { Box, Button, TextField, Typography, Container, IconButton } from '@mui/material';
+import { Box, Button, TextField, Typography, Container, IconButton, useTheme } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ThemeToggleButton from './ThemeToggleButton';
 import Navigation from './Navigation';
@@ -10,6 +10,7 @@ import Navigation from './Navigation';
 export default function Layout({ children, nav, metadata }) {
     const router = useRouter();
     const [searchTerm, setSearchTerm] = useState('');
+    const theme = useTheme();
 
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
@@ -19,9 +20,12 @@ export default function Layout({ children, nav, metadata }) {
     };
 
     const linkStyle = (active: boolean) => ({
-        color: 'white',
+        color: theme.palette.mode === 'dark'
+            ? theme.palette.common.white
+            : theme.palette.common.black,
         fontWeight: active ? 'bold' : 'normal',
-        textTransform: 'none'
+        textTransform: 'none',
+        padding: '0.0rem 1rem',
     });
 
     return (
@@ -34,27 +38,57 @@ export default function Layout({ children, nav, metadata }) {
 
             {/* Header */}
             <Box component="header" sx={{ bgcolor: 'primary.main', py: 2 }}>
-                <Container sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Link href="/" passHref>
-                        <Typography variant="h5" color="white">
-                            Tutorial Site
-                        </Typography>
-                    </Link>
-
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Container
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                    }}
+                >
+                    {/* Left: Fixed-width logo */}
+                    <Box sx={{ width: 280 }}>
                         <Link href="/" passHref>
-                            <Button sx={linkStyle(router.pathname === "/")} color="inherit">
-                                Home
+                            <Typography
+                                variant="h5"
+                                sx={{ ...linkStyle(router.pathname === '/'), width: '100%' }}
+                            >
+                                Tutorial Site
+                            </Typography>
+                        </Link>
+                    </Box>
+
+                    {/* Middle: Nav buttons */}
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                        <Link href="/" passHref>
+                            <Button sx={linkStyle(router.pathname === '/')}>
+                                <Typography variant="body1">
+                                    Home
+                                </Typography>
                             </Button>
                         </Link>
                         <Link href="/tutorial" passHref>
-                            <Button sx={linkStyle(router.pathname.startsWith("/tutorial"))} color="inherit">
-                                Tutorials
+                            <Button sx={linkStyle(router.pathname.startsWith('/tutorial'))}>
+                                <Typography variant="body1">
+                                    Tutorials
+                                </Typography>
                             </Button>
                         </Link>
                     </Box>
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <Box component="form" onSubmit={handleSearch} sx={{ display: 'flex', alignItems: 'center', ml: 2 }}>
+
+                    {/* Right: Search + Theme toggle */}
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            ml: 'auto',
+                            gap: 1,
+                        }}
+                    >
+                        <Box
+                            component="form"
+                            onSubmit={handleSearch}
+                            sx={{ display: 'flex', alignItems: 'center' }}
+                        >
                             <TextField
                                 variant="outlined"
                                 size="small"
@@ -63,7 +97,7 @@ export default function Layout({ children, nav, metadata }) {
                                 placeholder="Search tutorials..."
                                 sx={{ mr: 1 }}
                             />
-                            <IconButton type="submit" onSubmit={handleSearch} sx={{ width: 40, height: 40, borderRadius: 1 }}>
+                            <IconButton type="submit" sx={{ width: 40, height: 40, borderRadius: 1 }}>
                                 <SearchIcon />
                             </IconButton>
                         </Box>
@@ -72,6 +106,7 @@ export default function Layout({ children, nav, metadata }) {
                     </Box>
                 </Container>
             </Box>
+
 
             {/* Main Content */}
             <Box sx={{ flexGrow: 1, mt: 3 }}>
