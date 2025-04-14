@@ -1,5 +1,5 @@
 import { Box, Container } from '@mui/material';
-import Navigation from '../Navigation';
+import Navigation from './side-nav/Navigation';
 
 export default function MainContent({ nav, children }) {
     return (
