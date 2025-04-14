@@ -41,7 +41,7 @@ export default function Home({ navigation }) {
 
 export async function getStaticProps() {
     // Obținem structura de navigare
-    const navigation = await getNavigation();
+    const navigation = getNavigation();
 
     return {
         props: {

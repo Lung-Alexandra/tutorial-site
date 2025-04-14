@@ -76,7 +76,7 @@ function formatCategoryName(category) {
 
 export async function getStaticProps() {
     // Obținem structura de navigare
-    const navigation = await getNavigation();
+    const navigation = getNavigation();
 
     return {
         props: {
