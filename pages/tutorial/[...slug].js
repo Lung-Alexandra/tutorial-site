@@ -1,4 +1,4 @@
-import Layout from '../../components/Layout';
+import Layout from '../../components/layout/Layout';
 import { getMdxContent, getMdxPaths } from '../../lib/mdx';
 import { MDXRemote } from 'next-mdx-remote';
 import { getNavigation } from '../../lib/navigation';

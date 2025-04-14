@@ -1,4 +1,4 @@
-import Layout from '../components/Layout.tsx';
+import Layout from '../components/layout/Layout.tsx';
 import Link from 'next/link';
 import { getNavigation } from '../lib/navigation';
 

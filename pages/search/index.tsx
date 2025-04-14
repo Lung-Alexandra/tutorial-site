@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { Alert, Box, Button, CircularProgress, Grid, TextField, Typography } from "@mui/material";
 import ResultCard, { ResultCardState } from "./ResultCard";
 import { getNavigation } from '../../lib/navigation';
-import Layout from '../../components/Layout.tsx';
+import Layout from '../../components/layout/Layout.tsx';
 
 export interface SearchResult {
     title: string;
