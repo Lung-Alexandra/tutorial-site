@@ -1,11 +1,11 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
-import {Box, Button, TextField, Typography, Container, IconButton} from '@mui/material';
+import React, { useState } from 'react';
+import { Box, Button, TextField, Typography, Container, IconButton } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import Navigation from './Navigation';
 import ThemeToggleButton from './ThemeToggleButton';
+import Navigation from './Navigation';
 
 export default function Layout({ children, nav, metadata }) {
     const router = useRouter();
@@ -65,9 +65,14 @@ export default function Layout({ children, nav, metadata }) {
 
             {/* Main Content */}
             <Box sx={{ flexGrow: 1, mt: 3 }}>
-                <Container sx={{ display: 'flex' }}>
-                    <Navigation nav={nav} />
-                    <Box sx={{ flexGrow: 1, ml: 3 }}>{children}</Box>
+                <Container sx={{ display: 'flex', maxWidth: '100%' }}>
+                    <Box sx={{ width: 240, flexShrink: 0 }}>
+                        <Navigation nav={nav} />
+                    </Box>
+
+                    <Box sx={{ flexGrow: 1, ml: 3, maxWidth: 'calc(100% - 250px)', paddingRight: 3 }}>
+                        {children}
+                    </Box>
                 </Container>
             </Box>
 
