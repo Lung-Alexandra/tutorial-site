@@ -1,16 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { Alert, Box, Button, CircularProgress, Grid, TextField, Typography } from "@mui/material";
-import ResultCard, { ResultCardState } from "./ResultCard";
-import { getNavigation } from '../../lib/navigation';
+import { Box, Typography } from "@mui/material";
 import Layout from '../../components/layout/Layout';
-
-export interface SearchResult {
-    title: string;
-    url: string;
-    snippets: string[];
-}
-
+import { getNavigation } from '../../lib/navigation';
+import SearchResults, { SearchResult } from './SearchResults';
+import SearchForm from "./SearchForm";
 export default function SearchPage({ navigation, initialResults = [], initialQuery = '' }) {
     const router = useRouter();
     const [searchTerm, setSearchTerm] = useState<string>(initialQuery);
@@ -55,37 +49,18 @@ export default function SearchPage({ navigation, initialResults = [], initialQue
             <Box sx={{ px: 3, py: 4, width: '100%' }}>
                 <Typography variant="h4" gutterBottom>Search Results</Typography>
 
-                <Box component="form" sx={{ display: 'flex', gap: 2 }} onSubmit={(e) => {
-                    e.preventDefault();
-                    router.push(`/search?q=${encodeURIComponent(searchTerm)}`);
-                }}>
-                    <TextField
-                        fullWidth
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        placeholder="Search tutorials..."
-                        label="Search"
-                    />
-                    <Button type="submit"  variant="contained">
-                        Search
-                    </Button>
-                </Box>
+                <SearchForm
+                    searchTerm={searchTerm}
+                    setSearchTerm={setSearchTerm}
+                    onSubmit={() => router.push(`/search?q=${encodeURIComponent(searchTerm)}`)}
+                />
 
-                <Box>
-                    {loading ? <CircularProgress /> : error ? <Alert severity="error">{error}</Alert> :
-                        results.length ? (
-                            <>
-                                <Typography variant="subtitle1">Found {results.length} document(s)</Typography>
-                                <Grid container spacing={4}>
-                                    {results.map((result, index) => (
-                                        <Grid item key={index} xs={12}>
-                                            <ResultCard state={new ResultCardState(result, searchTerm)} />
-                                        </Grid>
-                                    ))}
-                                </Grid>
-                            </>
-                        ) : <Typography>No results found for "{searchTerm}"</Typography>}
-                </Box>
+                <SearchResults
+                    results={results}
+                    loading={loading}
+                    error={error}
+                    searchTerm={searchTerm}
+                />
             </Box>
         </Layout>
     );
