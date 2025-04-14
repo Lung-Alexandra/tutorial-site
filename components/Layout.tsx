@@ -18,6 +18,12 @@ export default function Layout({ children, nav, metadata }) {
         }
     };
 
+    const linkStyle = (active: boolean) => ({
+        color: 'white',
+        fontWeight: active ? 'bold' : 'normal',
+        textTransform: 'none'
+    });
+
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
             <Head>
@@ -30,20 +36,24 @@ export default function Layout({ children, nav, metadata }) {
             <Box component="header" sx={{ bgcolor: 'primary.main', py: 2 }}>
                 <Container sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Link href="/" passHref>
-                        <Typography variant="h6" color="white">
+                        <Typography variant="h5" color="white">
                             Tutorial Site
                         </Typography>
                     </Link>
 
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
                         <Link href="/" passHref>
-                            <Button color="inherit">Home</Button>
+                            <Button sx={linkStyle(router.pathname === "/")} color="inherit">
+                                Home
+                            </Button>
                         </Link>
                         <Link href="/tutorial" passHref>
-                            <Button color="inherit">Tutorials</Button>
+                            <Button sx={linkStyle(router.pathname.startsWith("/tutorial"))} color="inherit">
+                                Tutorials
+                            </Button>
                         </Link>
-
-                        {/* Search */}
+                    </Box>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
                         <Box component="form" onSubmit={handleSearch} sx={{ display: 'flex', alignItems: 'center', ml: 2 }}>
                             <TextField
                                 variant="outlined"
