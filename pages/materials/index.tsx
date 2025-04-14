@@ -1,48 +1,62 @@
-import Layout from "../../components/layout/Layout";
-import {getNavigation} from "../../lib/navigation";
+import Layout from '../../components/layout/Layout';
+import { getNavigation } from '../../lib/navigation';
+import { Box, Container, Typography, Paper, Link as MuiLink } from '@mui/material';
 
-export default function Materials({navigation}) {
+export default function Materials({ navigation }) {
+    const resources = [
+        {
+            title: 'Official Documentation',
+            description: 'OpenGL Documentation',
+            link: 'https://www.opengl.org/documentation/',
+        },
+        {
+            title: 'Learn OpenGL',
+            description: 'Learn OpenGL - Modern OpenGL Tutorials',
+            link: 'https://learnopengl.com/',
+        },
+        {
+            title: 'OpenGL Tutorials',
+            description: 'OpenGL Tutorial',
+            link: 'https://www.opengl-tutorial.org/',
+        },
+    ];
+
     return (
-        <Layout nav={navigation} metadata={undefined}>
-            <div className="container">
-                <h1>Materials</h1>
-                <p>Materials and resources for learning OpenGL.</p>
+        <Layout nav={navigation} metadata={{ title: 'Materials' }}>
+            <Container maxWidth="md" sx={{ py: 4 }}>
+                <Typography variant="h4" gutterBottom>
+                    Materials
+                </Typography>
+                <Typography variant="body1" sx={{ mb: 4 }}>
+                    Materials and resources for learning OpenGL.
+                </Typography>
 
-                <div className="materials-list">
-                    <div className="material-item">
-                        <h2>Official Documentation</h2>
-                        <p>
-                            <a href="https://www.opengl.org/documentation/" target="_blank" rel="noopener noreferrer">
-                                OpenGL Documentation
-                            </a>
-                        </p>
-                    </div>
-
-                    <div className="material-item">
-                        <h2>Learn OpenGL</h2>
-                        <p>
-                            <a href="https://learnopengl.com/" target="_blank" rel="noopener noreferrer">
-                                Learn OpenGL - Modern OpenGL Tutorials
-                            </a>
-                        </p>
-                    </div>
-
-                    <div className="material-item">
-                        <h2>OpenGL Tutorials</h2>
-                        <p>
-                            <a href="http://www.opengl-tutorial.org/" target="_blank" rel="noopener noreferrer">
-                                OpenGL Tutorial
-                            </a>
-                        </p>
-                    </div>
-                </div>
-            </div>
+                <Box display="flex" flexDirection="column" gap={3}>
+                    {resources.map((res, idx) => (
+                        <Paper key={idx} elevation={3} sx={{ p: 3 }}>
+                            <Typography variant="h6" gutterBottom>
+                                {res.title}
+                            </Typography>
+                            <Typography variant="body2">
+                                <MuiLink
+                                    href={res.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    underline="hover"
+                                    color="primary"
+                                >
+                                    {res.description}
+                                </MuiLink>
+                            </Typography>
+                        </Paper>
+                    ))}
+                </Box>
+            </Container>
         </Layout>
     );
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
     const navigation = getNavigation();
-
     return { props: { navigation } };
 }
