@@ -78,10 +78,10 @@ const Navigation: React.FC<NavigationProps> = ({ nav }) => {
                                 onClick={() => toggleFolder(currentPath)}
                                 sx={{pl: 2*level}}
                             >
-                                <IconButton sx={{ color: 'white' }}>
+                                <IconButton>
                                     {isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                                 </IconButton>
-                                <ListItemText primary={name} sx={{color: 'inherit' }} />
+                                <ListItemText primary={name} />
                             </ListItemButton>
                             <Collapse in={isExpanded} timeout="auto" unmountOnExit>
                                 {renderNavItems(value as Record<string, NavItem>, currentPath, level + 1)}
@@ -97,11 +97,11 @@ const Navigation: React.FC<NavigationProps> = ({ nav }) => {
 
     return (
         <nav style={{flexShrink: 0, width: '100%' }}>
-            <Typography variant="h6" sx={{ color: 'white' }}>
+            <Typography variant="h6">
                 Secțiuni Tutorial
             </Typography>
             {Object.keys(navTree).length === 0 ? (
-                <Typography variant="body1" sx={{ color: 'white' }}>
+                <Typography variant="body1">
                     Nu există secțiuni disponibile.
                 </Typography>
             ) : (
