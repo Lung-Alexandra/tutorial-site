@@ -20,19 +20,15 @@ export const useTheme = () => {
 
 export const ThemeProvider = ({ children }) => {
     const [theme, setTheme] = useState<PaletteMode>('light');
-    const [isThemeLoaded, setIsThemeLoaded] = useState<boolean>(false);
+    const [isThemeLoaded, setIsThemeLoaded] = useState(false);
 
     useEffect(() => {
         const savedTheme = localStorage.getItem('theme') as PaletteMode;
         if (savedTheme) {
             setTheme(savedTheme);
         }
-        setIsThemeLoaded(true); // Indicate that the theme is loaded
+        setIsThemeLoaded(true);
     }, []);
-
-    if (!isThemeLoaded) {
-        return null;
-    }
 
     const toggleTheme = () => {
         const newTheme = theme === 'light' ? 'dark' : 'light';
@@ -40,9 +36,36 @@ export const ThemeProvider = ({ children }) => {
         localStorage.setItem('theme', newTheme);
     };
 
+    if (!isThemeLoaded) return null;
+
     const muiTheme = createTheme({
         palette: {
             mode: theme,
+            ...(theme === 'light'
+                ? {
+                    background: {
+                        default: '#f6f6f6',
+                        paper: '#ffffff',
+                    },
+                    text: {
+                        primary: '#1f1f1f',
+                        secondary: '#555555',
+                    },
+                }
+                : {
+                    background: {
+                        default: '#181a1f',
+                        paper: '#1f2229',
+                    },
+                    text: {
+                        primary: '#e0e0e0',
+                        secondary: '#a0a0a0',
+                    },
+                }),
+        },
+        typography: {
+            fontFamily: '"Roboto", "monospace", sans-serif',
+            fontSize: 14,
         },
     });
 

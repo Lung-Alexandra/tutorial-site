@@ -5,7 +5,9 @@ export default function NavButtons({ pathname }) {
     const theme = useTheme();
 
     const linkStyle = (active: boolean) => ({
-        color: theme.palette.common.white,
+        color: theme.palette.mode === 'dark'
+            ? theme.palette.common.white
+            : theme.palette.common.black,
         fontWeight: active ? 'bold' : 'normal',
         textTransform: 'none',
         padding: '0.0rem 1rem',

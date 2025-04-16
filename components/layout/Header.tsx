@@ -1,18 +1,31 @@
-import {Box, Container, IconButton, Tooltip, Typography} from '@mui/material';
-import Link from 'next/link';
+import {alpha, Box, Container, IconButton, Link, Tooltip, Typography, useTheme} from '@mui/material';
+
 import NavButtons from './NavButtons';
 import SearchBar from './SearchBar';
-import {useTheme} from "../../pages/ThemeContext";
-import React, {useEffect} from "react";
-import {Brightness4, Brightness7} from "@mui/icons-material";
+import React from "react";
+import { ThemeToggleButton } from './ThemeToggleButton';
+import NextLink from 'next/link';
 
 export default function Header({ pathname, searchTerm, setSearchTerm, handleSearch }) {
+    const theme = useTheme()
+    const logoStyle = () => ({
+        color: theme.palette.mode === 'dark'
+            ? theme.palette.common.white
+            : theme.palette.common.black,
+    });
+
     return (
-        <Box component="header" sx={{ bgcolor: 'primary.main', py: 2 }}>
+        <Box
+            component="header"
+            sx={(theme) => ({
+                boxShadow: `0 2px 2px ${alpha(theme.palette.text.primary, 0.1)}`,
+                py: 2,
+            })}
+        >
             <Container sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <Box sx={{ width: 280 }}>
-                    <Link href="/" passHref>
-                        <Typography variant="h5" sx={{ color: 'common.white' }}>
+                    <Link href="/"  component={NextLink} passHref sx={{ textDecoration: 'none'}}>
+                        <Typography variant="h5" sx={ logoStyle() }>
                             Tutorial Site
                         </Typography>
                     </Link>
@@ -33,26 +46,4 @@ export default function Header({ pathname, searchTerm, setSearchTerm, handleSear
     );
 }
 
-const ThemeToggleButton = () => {
-    const { theme, toggleTheme } = useTheme();
 
-    useEffect(() => {
-        if (theme === "dark") {
-            document.body.setAttribute('data-theme', 'dark');
-            document.documentElement.setAttribute('data-theme', 'dark');
-            document.body.classList.add('dark-theme'); // pentru compatibilitate
-        } else {
-            document.body.setAttribute('data-theme', 'light');
-            document.documentElement.setAttribute('data-theme', 'light');
-            document.body.classList.remove('dark-theme');
-        }
-    }, [theme]);
-
-    return (
-        <Tooltip title={`Switch to ${theme === 'light' ? 'Dark' : 'Light'} Mode`}>
-            <IconButton onClick={toggleTheme} color="inherit">
-                {theme === 'light' ? <Brightness4 /> : <Brightness7 />}
-            </IconButton>
-        </Tooltip>
-    );
-};

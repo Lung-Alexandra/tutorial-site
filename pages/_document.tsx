@@ -6,17 +6,17 @@ export default function Document() {
         <Html>
             <Head>
                 {/* CSS de bază */}
-                <link rel="stylesheet" href="/css/base.css" />
-                <link rel="stylesheet" href="/css/navbar.css" />
-                <link rel="stylesheet" href="/css/tutorial.css" />
-                <link rel="stylesheet" href="/css/github-markdown.css" />
-                <link rel="stylesheet" href="/styles/main.css" />
+                {/*<link rel="stylesheet" href="/css/base.css" />*/}
+                {/*<link rel="stylesheet" href="/css/navbar.css" />*/}
+                {/*<link rel="stylesheet" href="/css/tutorial.css" />*/}
+                {/*<link rel="stylesheet" href="/css/github-markdown.css" />*/}
+                {/*<link rel="stylesheet" href="/styles/main.css" />*/}
 
                 {/* Tema dark - pusă ultimă pentru a avea prioritate */}
-                <link rel="stylesheet" href="/styles/theme.css" />
+                {/*<link rel="stylesheet" href="/styles/theme.css" />*/}
 
                 {/* Highlight.js CSS - pentru code highlighting (temă dark) */}
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css" />
+                {/*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css" />*/}
 
                 {/* KaTeX CSS pentru formule matematice */}
                 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css" />
