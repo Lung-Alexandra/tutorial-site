@@ -4,7 +4,7 @@ import Layout from '../../components/layout/Layout';
 import { getMdxContent, getMdxPaths } from '../../lib/mdx';
 import { getNavigation } from '../../lib/navigation';
 import CodeBlock from './CodeBlock';
-import { Box } from '@mui/material';
+import { Box, Link } from '@mui/material';
 
 interface Frontmatter {
     title?: string;
@@ -44,7 +44,10 @@ const TutorialPage: React.FC<TutorialPageProps> = ({
 
     const metadata = { title: pageTitle, description: pageDescription };
 
-    const components = { pre: CodeBlock };
+    const components = {
+        pre: CodeBlock ,
+        a: (props) => <Link {...props} />,
+    };
 
     return (
         <Layout nav={navigation} metadata={metadata}>
