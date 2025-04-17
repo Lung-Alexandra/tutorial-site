@@ -1,6 +1,17 @@
-import Link from "next/link";
-import {Button, Card, CardHeader, Grid, Typography} from "@mui/material";
-import {SearchResult} from "./SearchResults";
+import React from 'react';
+import Link from 'next/link';
+import {
+    Box,
+    Button,
+    Card,
+    CardContent,
+    CardHeader,
+    Grid,
+    Typography,
+    Divider, // Import Divider from MUI
+} from '@mui/material';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import { SearchResult } from './SearchResults';
 
 export class ResultCardState {
     title: string;
@@ -11,51 +22,90 @@ export class ResultCardState {
     constructor(searchResult: SearchResult, textToHighlight: string) {
         this.title = searchResult.title;
         this.url = searchResult.url;
-        this.snippets = searchResult.snippets
+        this.snippets = searchResult.snippets;
         this.textToHighlight = textToHighlight;
+    }
+
+    // Method to extract folder name from the URL
+    getFolderName() {
+        // Assuming the folder is part of the URL path (e.g., /folder/tutorial-page)
+        const urlParts = this.url.split('/');
+        return urlParts.length > 1 ? urlParts[urlParts.length - 2] : '';
     }
 }
 
-export default function  ResultCard(
-    {state}: {state: ResultCardState}
-) {
-
-    return (
-        <Card sx={{p:2}}>
-            <CardHeader
-                title={<Link href={state.url}>{state.title}</Link>}
-            />
-
-
-            <Grid container spacing={4}>
-                {state.snippets.map((snippet, snippetIndex) => (
-                    <Grid size={12}>
-                        <Typography
-                            variant={'body1'}
-                            key={snippetIndex}
-                            dangerouslySetInnerHTML={{
-                                __html: highlightSearchTerm(snippet, state.textToHighlight),
-                            }}
-                        />
-                    </Grid>
-                ))}
-            </Grid>
-
-            <Grid container justifyContent="flex-end" spacing={2}>
-                <Button variant="contained">
-                    <Link href={state.url} legacyBehavior>
-                        Către documentație
-                    </Link>
-                </Button>
-            </Grid>
-        </Card>
-
-    )
+interface ResultCardProps {
+    state: ResultCardState;
 }
 
-function highlightSearchTerm(text: string, textToHighlight: string) {
+const ResultCard: React.FC<ResultCardProps> = ({ state }) => {
+    const folderName = state.getFolderName();
+
+    return (
+        <Card elevation={3} sx={{ p: 1, borderRadius: 3, width: '100%', maxWidth: 'none' }}>
+            <CardHeader
+                title={
+                    <Typography
+                        component={Link}
+                        href={state.url}
+                        variant="h6"
+                        color="primary"
+                        sx={{ textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}
+                    >
+                        {state.title}
+                    </Typography>
+                }
+                subheader={folderName && (
+                    <Typography variant="body2" color="text.secondary">
+                        {folderName}
+                    </Typography>
+                )}
+            />
+
+            <CardContent sx={{ pt: 1 }}>
+                <Grid container spacing={2}>
+                    {state.snippets.map((snippet, index) => (
+                        <Grid item xs={12} key={index} sx={{ width: '100%' }}>
+                            <Typography
+                                variant="body2"
+                                color="text.secondary"
+                                dangerouslySetInnerHTML={{
+                                    __html: highlightSearchTerm(snippet, state.textToHighlight),
+                                }}
+                            />
+                            {index < state.snippets.length - 1 && <Divider sx={{ my: 2 }} />}
+                        </Grid>
+                    ))}
+                </Grid>
+
+                <Box display="flex" justifyContent="flex-end" mt={3}>
+                    <Button
+                        variant="outlined"
+                        endIcon={<OpenInNewIcon />}
+                        component={Link}
+                        href={state.url}
+                    >
+                        Către documentație
+                    </Button>
+                </Box>
+            </CardContent>
+        </Card>
+    );
+};
+
+export default ResultCard;
+
+function highlightSearchTerm(text: string, textToHighlight: string): string {
     if (!text || !textToHighlight) return text;
 
-    const regex = new RegExp(`(${textToHighlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-    return text.replace(regex, '<mark>$1</mark>');
+    const terms = textToHighlight.split(/\s+/).filter(Boolean); // Split the search term into multiple words
+    terms.forEach((term) => {
+        const regex = new RegExp(
+            `(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`,
+            'gi'
+        );
+        text = text.replace(regex, '<mark>$1</mark>');
+    });
+
+    return text;
 }

@@ -1,5 +1,12 @@
-import { Alert, Box, CircularProgress, Grid, Typography } from "@mui/material";
-import ResultCard, { ResultCardState } from "./ResultCard";
+import React from 'react';
+import {
+    Alert,
+    Box,
+    CircularProgress,
+    Grid,
+    Typography,
+} from '@mui/material';
+import ResultCard, { ResultCardState } from './ResultCard';
 
 export interface SearchResult {
     title: string;
@@ -7,30 +14,60 @@ export interface SearchResult {
     snippets: string[];
 }
 
-interface Props {
+interface SearchResultsProps {
     results: SearchResult[];
     loading: boolean;
     error: string | null;
     searchTerm: string;
 }
 
-export default function SearchResults({ results, loading, error, searchTerm }: Props) {
-    if (loading) return <CircularProgress />;
-    if (error) return <Alert severity="error">{error}</Alert>;
-    if (results.length === 0) return <Typography>No results found for "{searchTerm}"</Typography>;
+const SearchResults: React.FC<SearchResultsProps> = ({
+                                                         results,
+                                                         loading,
+                                                         error,
+                                                         searchTerm,
+                                                     }) => {
+    if (loading) {
+        return (
+            <Box display="flex" justifyContent="center" my={4}>
+                <CircularProgress />
+            </Box>
+        );
+    }
+
+    if (error) {
+        return (
+            <Box my={4}>
+                <Alert severity="error">{error}</Alert>
+            </Box>
+        );
+    }
+
+    if (results.length === 0) {
+        return (
+            <Box my={4}>
+                <Typography variant="body1" color="text.secondary">
+                    No results found for "<strong>{searchTerm}</strong>"
+                </Typography>
+            </Box>
+        );
+    }
 
     return (
-        <Box>
+        <Box sx={{ width: '100%' }}>
             <Typography variant="subtitle1" gutterBottom>
-                Found {results.length} document(s)
+                Found {results.length} document{results.length > 1 ? 's' : ''}
             </Typography>
+
             <Grid container spacing={4}>
                 {results.map((result, index) => (
-                    <Grid xs={12} key={index}>
+                    <Grid item xs={12} sm={6} md={4} key={index} sx={{width: '100%'}}>
                         <ResultCard state={new ResultCardState(result, searchTerm)} />
                     </Grid>
                 ))}
             </Grid>
         </Box>
     );
-}
+};
+
+export default SearchResults;
