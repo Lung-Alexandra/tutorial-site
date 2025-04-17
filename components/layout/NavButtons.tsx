@@ -18,17 +18,17 @@ export default function NavButtons({ pathname }) {
         <Box sx={{ display: 'flex', alignItems: 'stretch', gap: 2 }}>
             <Link href="/" passHref>
                 <Button sx={linkStyle(pathname === '/')}>
-                    <Typography variant="body1">Home</Typography>
+                    <Typography variant="body1">Acasă</Typography>
                 </Button>
             </Link>
             <Link href="/tutorial" passHref>
                 <Button sx={linkStyle(pathname.startsWith('/tutorial'))}>
-                    <Typography variant="body1">Tutorials</Typography>
+                    <Typography variant="body1">Tutoriale</Typography>
                 </Button>
             </Link>
             <Link href="/materials" passHref>
                 <Button sx={linkStyle(pathname.startsWith('/materials'))}>
-                    <Typography variant="body1">Materials</Typography>
+                    <Typography variant="body1">Materiale</Typography>
                 </Button>
             </Link>
         </Box>

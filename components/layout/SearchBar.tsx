@@ -9,7 +9,7 @@ export default function SearchBar({ searchTerm, setSearchTerm, handleSearch }) {
                 size="small"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Search tutorials..."
+                placeholder="Căutare..."
                 sx={{ mr: 1 }}
             />
             <IconButton type="submit" sx={{ width: 40, height: 40, borderRadius: 1 }}>

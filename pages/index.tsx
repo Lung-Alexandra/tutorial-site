@@ -1,75 +1,56 @@
 import React from 'react';
-import { GetStaticProps } from 'next';
+import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import Link from 'next/link';
-import { Box, Button, Container, Typography } from '@mui/material';
-import {getNavigation} from "../lib/navigation";
+import {
+    Box,
+    Button,
+    Container,
+    Stack,
+    Typography,
+} from '@mui/material';
+import { getNavigation } from '../lib/navigation';
 import Layout from '../components/layout/Layout';
 
-interface HomeProps {
-    navigation: {
-        flat: Record<string, string>;
-    };
-}
+type HomeProps = InferGetStaticPropsType<typeof getStaticProps>;
 
 const Home: React.FC<HomeProps> = ({ navigation }) => {
-    const navFlat = navigation.flat || {};
+    const navFlat = navigation?.flat ?? {};
 
     return (
         <Layout
             nav={navigation}
             metadata={{
-                title: 'Tutorial Site - Homepage',
-                description: 'Explore our comprehensive tutorials and learning resources',
+                title: 'Grafică pe Calculator',
+                description: 'Materiale pentru curs și laborator',
             }}
         >
-            <Container maxWidth="lg" sx={{ py: 6 }}>
-                {/* Hero Section */}
-                <Box sx={{ mb: 6, textAlign: 'center' }}>
+            <Container maxWidth="lg" sx={{ py: 8 }}>
+                <Box textAlign="center" mb={6}>
                     <Typography variant="h3" fontWeight={700} gutterBottom>
-                        Welcome to the Tutorial Site
+                        Grafică pe Calculator – materiale suport
                     </Typography>
-                    <Typography variant="h6" color="text.secondary">
-                        Explore our comprehensive collection of tutorials to enhance your skills and knowledge.
-                    </Typography>
-                </Box>
 
-                <Box
-                    sx={{
-                        textAlign: 'center',
-                        backgroundColor: 'background.paper',
-                        borderRadius: 2,
-                        py: 6,
-                        px: 3,
-                        boxShadow: 1,
-                    }}
-                >
-                    <Typography variant="h4" fontWeight={600} gutterBottom>
-                        Start Learning Today
-                    </Typography>
-                    <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-                        Browse our complete collection of tutorials or use the search functionality to find specific topics.
-                    </Typography>
-                    <Button
-                        component={Link}
-                        href="/tutorial"
-                        variant="contained"
-                        size="large"
-                        color="primary"
-                    >
-                        Browse All Tutorials
-                    </Button>
+                    <Stack spacing={4} maxWidth="md" mx="auto">
+                        <Typography variant="h6" color="text.secondary">
+                            <strong> Prof. dr. habil. Stupariu Mihai-Sorin </strong>
+                        </Typography>
+
+                        <Typography variant="h6" color="text.secondary">
+                            Pe acest site se găsesc materiale utile pentru curs, documentații pentru codurile din cadrul laboratorului și alte materiale folositoare pentru materia Grafică pe Calculator.
+                        </Typography>
+                    </Stack>
                 </Box>
             </Container>
         </Layout>
     );
 };
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps<HomeProps> = async () => {
     const navigation = getNavigation();
 
     return {
         props: { navigation },
-        revalidate: 600,
+        revalidate: 600, // Revalidate every 10 minutes
     };
 };
 

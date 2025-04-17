@@ -24,14 +24,14 @@ const TutorialIndex: React.FC<TutorialIndexProps> = ({ navigation }) => {
     return (
         <Layout
             nav={navigation}
-            metadata={{ title: 'All Tutorials', description: 'Browse all available tutorials' }}
+            metadata={undefined}
         >
             <Container sx={{ py: 4 }}>
                 <Typography variant="h3" gutterBottom>
-                    All Tutorials
+                    Toate Tutorialele
                 </Typography>
                 <Typography variant="body1" sx={{ mb: 4 }}>
-                    Browse our complete collection of tutorials organized by categories.
+                    Tutorialele grupate in funcție de categorie / laborator.
                 </Typography>
 
                 {Object.entries(grouped).map(([category, items]) => (

@@ -25,7 +25,7 @@ const CategorySection: React.FC<CategorySectionProps> = ({ category, items }) =>
                 {formatCategoryName(category)}
             </Typography>
             <Typography variant="subtitle2" color="text.secondary">
-                {items.length} tutorial{items.length !== 1 && 's'}
+                {items.length} tutorial{items.length !== 1 && 'e'}
             </Typography>
         </Box>
 

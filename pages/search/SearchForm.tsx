@@ -20,11 +20,11 @@ export default function SearchForm({ searchTerm, setSearchTerm, onSubmit }: Sear
                 fullWidth
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Search tutorials..."
-                label="Search"
+                placeholder="Căutare..."
+                label="Caută"
             />
             <Button type="submit" variant="contained">
-                Search
+                Caută
             </Button>
         </Box>
     );

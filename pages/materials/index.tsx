@@ -5,8 +5,8 @@ import { Box, Container, Typography, Paper, Link as MuiLink } from '@mui/materia
 export default function Materials({ navigation }) {
     const resources = [
         {
-            title: 'Official Documentation',
-            description: 'OpenGL Documentation',
+            title: 'Documentație Oficială',
+            description: 'Khronos - OpenGL Documentation',
             link: 'https://www.opengl.org/documentation/',
         },
         {
@@ -15,20 +15,20 @@ export default function Materials({ navigation }) {
             link: 'https://learnopengl.com/',
         },
         {
-            title: 'OpenGL Tutorials',
+            title: 'Alte Tutoriale OpenGL',
             description: 'OpenGL Tutorial',
             link: 'https://www.opengl-tutorial.org/',
         },
     ];
 
     return (
-        <Layout nav={navigation} metadata={{ title: 'Materials' }}>
+        <Layout nav={navigation}>
             <Container maxWidth="md" sx={{ py: 4 }}>
                 <Typography variant="h4" gutterBottom>
-                    Materials
+                    Materiale
                 </Typography>
                 <Typography variant="body1" sx={{ mb: 4 }}>
-                    Materials and resources for learning OpenGL.
+                    Materiale și resurse pentru a învăța OpenGL.
                 </Typography>
 
                 <Box display="flex" flexDirection="column" gap={3}>

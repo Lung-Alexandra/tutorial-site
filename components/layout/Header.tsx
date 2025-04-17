@@ -26,7 +26,7 @@ export default function Header({ pathname, searchTerm, setSearchTerm, handleSear
                 <Box sx={{ width: 280 }}>
                     <Link href="/"  component={NextLink} passHref sx={{ textDecoration: 'none'}}>
                         <Typography variant="h5" sx={ logoStyle() }>
-                            Tutorial Site
+                            Grafică pe Calculator
                         </Typography>
                     </Link>
                 </Box>

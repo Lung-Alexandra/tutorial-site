@@ -47,7 +47,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({
         return (
             <Box my={4}>
                 <Typography variant="body1" color="text.secondary">
-                    No results found for "<strong>{searchTerm}</strong>"
+                    Nu s-au găsit rezultate pentru "<strong>{searchTerm}</strong>"
                 </Typography>
             </Box>
         );
@@ -56,7 +56,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({
     return (
         <Box sx={{ width: '100%' }}>
             <Typography variant="subtitle1" gutterBottom>
-                Found {results.length} document{results.length > 1 ? 's' : ''}
+                Au fost găsite: {results.length} tutorial{results.length > 1 ? 'e' : ''}
             </Typography>
 
             <Grid container spacing={4}>

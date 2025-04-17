@@ -20,8 +20,8 @@ export default function Layout({ children, nav, metadata }) {
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
             <Head>
-                <title>{metadata?.title || 'Tutorial Site'}</title>
-                <meta name="description" content={metadata?.description || 'Learn new skills with our tutorials'} />
+                <title>{metadata?.title || 'Grafică pe Calculator'}</title>
+                <meta name="description" content={metadata?.description || 'Suport de curs + laborator'} />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 

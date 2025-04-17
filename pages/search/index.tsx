@@ -41,13 +41,10 @@ export default function SearchPage({ navigation, initialResults = [], initialQue
     return (
         <Layout
             nav={navigation}
-            metadata={{
-                title: `Search Results for "${searchTerm}"`,
-                description: `Search results for "${searchTerm}" in our tutorials`,
-            }}
+            metadata={undefined}
         >
             <Box sx={{ px: 3, py: 4, width: '100%' }}>
-                <Typography variant="h4" gutterBottom>Search Results</Typography>
+                <Typography variant="h4" gutterBottom>Rezultatele Căutării</Typography>
 
                 <SearchForm
                     searchTerm={searchTerm}
