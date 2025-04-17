@@ -20,7 +20,7 @@ const Navigation: React.FC<NavigationProps> = ({ nav }) => {
     const [expandedFolders, setExpandedFolders] = useState<Record<string, boolean>>({});
 
     useEffect(() => {
-        const pathParts = router.asPath.split('/').filter(Boolean);
+        const pathParts = router.asPath.replaceAll('%20', ' ').split('/').filter(Boolean);
         const expanded: Record<string, boolean> = {};
 
         if (pathParts[0] === 'tutorial') {
@@ -30,13 +30,15 @@ const Navigation: React.FC<NavigationProps> = ({ nav }) => {
             });
         }
 
+        console.log(expanded);
+        console.log(navTree);
         setExpandedFolders(expanded);
     }, [router.asPath]);
 
     const toggleFolder = (path: string) => {
         setExpandedFolders(prev => ({
             ...prev,
-            [path.toLowerCase()]: !prev[path.toLowerCase()],
+            [path]: !prev[path],
         }));
     };
 

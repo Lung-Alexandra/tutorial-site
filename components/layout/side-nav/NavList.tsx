@@ -28,7 +28,7 @@ export default function NavList({ items, parentPath, level, expandedFolders, tog
                 }
 
                 if (typeof value === 'object') {
-                    const isExpanded = expandedFolders[currentPath.toLowerCase()] || false;
+                    const isExpanded = expandedFolders[currentPath] || false;
 
                     return (
                         <NavItemFolder

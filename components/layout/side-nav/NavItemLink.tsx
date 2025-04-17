@@ -9,7 +9,7 @@ interface NavItemLinkProps {
 
 export default function NavItemLink({ name, path, level }: NavItemLinkProps) {
     const router = useRouter();
-    const isActive = router.asPath === path;
+    const isActive = router.asPath.replaceAll('%20', ' ') === path;
 
     const handleNavigation = () => {
         router.push(path);
