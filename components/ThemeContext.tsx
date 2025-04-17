@@ -12,7 +12,7 @@ const defaultContextValue: ThemeContextType = {
     toggleTheme: () => {},
 };
 
-const ThemeContext = createContext<ThemeContextType>(defaultContextValue);
+export const ThemeContext = createContext<ThemeContextType>(defaultContextValue);
 
 export const useTheme = () => {
     return useContext(ThemeContext);

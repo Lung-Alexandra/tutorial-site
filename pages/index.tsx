@@ -45,7 +45,7 @@ const Home: React.FC<HomeProps> = ({ navigation }) => {
     );
 };
 
-export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+export const getStaticProps: GetStaticProps = async () => {
     const navigation = getNavigation();
 
     return {

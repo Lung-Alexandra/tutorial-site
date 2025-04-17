@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useTheme } from "@mui/material/styles";
 
-export function HighlightJsThemeLoader() {
+export default function HighlightJsThemeLoader() {
     const theme = useTheme();
 
     useEffect(() => {

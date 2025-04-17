@@ -22,7 +22,7 @@ export default function Materials({ navigation }) {
     ];
 
     return (
-        <Layout nav={navigation}>
+        <Layout nav={navigation} metadata={undefined}>
             <Container maxWidth="md" sx={{ py: 4 }}>
                 <Typography variant="h4" gutterBottom>
                     Materiale

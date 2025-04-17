@@ -1,5 +1,5 @@
 import { Html, Head, Main, NextScript } from 'next/document';
-import {ThemeProvider} from "./ThemeContext";
+import {ThemeProvider} from "../components/ThemeContext";
 
 export default function Document() {
     return (

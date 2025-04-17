@@ -1,5 +1,5 @@
-import { ThemeProvider } from "./ThemeContext";
-import {HighlightJsThemeLoader} from "./HighlightJsThemeLoader";
+import { ThemeProvider } from "../components/ThemeContext";
+import HighlightJsThemeLoader from "../components/HighlightJsThemeLoader";
 
 export default function MyApp({ Component, pageProps }) {
     return (

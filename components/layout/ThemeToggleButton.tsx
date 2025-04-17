@@ -1,7 +1,7 @@
 import {IconButton, Tooltip} from "@mui/material";
 import React, {useEffect} from "react";
 import {Brightness4, Brightness7} from "@mui/icons-material";
-import { useTheme } from "../../pages/ThemeContext";
+import { useTheme } from "../ThemeContext";
 
 export const ThemeToggleButton = () => {
     const { theme, toggleTheme } = useTheme();

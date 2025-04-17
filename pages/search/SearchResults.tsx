@@ -61,7 +61,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({
 
             <Grid container spacing={4}>
                 {results.map((result, index) => (
-                    <Grid item xs={12} sm={6} md={4} key={index} sx={{width: '100%'}}>
+                    <Grid key={index} sx={{width: '100%'}}>
                         <ResultCard state={new ResultCardState(result, searchTerm)} />
                     </Grid>
                 ))}

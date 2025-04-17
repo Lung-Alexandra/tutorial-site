@@ -65,7 +65,7 @@ const ResultCard: React.FC<ResultCardProps> = ({ state }) => {
             <CardContent sx={{ pt: 1 }}>
                 <Grid container spacing={2}>
                     {state.snippets.map((snippet, index) => (
-                        <Grid item xs={12} key={index} sx={{ width: '100%' }}>
+                        <Grid key={index} sx={{ width: '100%' }}>
                             <Typography
                                 variant="body2"
                                 color="text.secondary"
