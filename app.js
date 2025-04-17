@@ -101,11 +101,11 @@ app.get('/search', (req, res) => {
     res.render('search', { title: 'Search Results', term: query, results: searchResults });
 });
 
-
 app.get('/tutorial', (req, res) => {
     res.render('tutorial', { title: 'Tutorial' });
 
 });
+
 
 
 app.get('/materials', (req, res) => {
