@@ -1,7 +1,6 @@
 'use strict';
 const express = require('express');
 const app = express();
-const nunjucks = require('nunjucks');
 const fs = require('fs');
 const path = require('path');
 const marked = require('marked');
@@ -28,22 +27,6 @@ function getFileStructure(dirpath) {
         structure.push(cale.replace('tutorial', '/tutorial'));
     }
     return structure;
-}
-
-function getRoutes(fileStr) {
-    const mdRoutes = []
-    fileStr.forEach(file => {
-        let segments = file.split('/');
-
-        // Construiește rute pentru fiecare segment intermediar
-        for (let i = 2; i <= segments.length; i++) {
-            let subRoute = segments.slice(0, i).join('/');
-            if (!mdRoutes.includes(subRoute) && !subRoute.endsWith('.md')) {
-                mdRoutes.push(subRoute);
-            }
-        }
-    });
-    return mdRoutes.filter((item, index) => mdRoutes.indexOf(item) === index).sort((a, b) => b.length - a.length);
 }
 
 //stuctura directoare
@@ -89,70 +72,6 @@ function createIndex() {
 
 // Create the Lunr.js index
 const index = createIndex();
-// fs.writeFileSync('index.json', JSON.stringify(index));
-// fs.writeFileSync('data.json', JSON.stringify(data));
-
-// Configurare pentru a folosi Nunjucks pentru sabloane
-nunjucks.configure('views', {
-    autoescape: true,
-    express: app
-});
-
-
-app.set('view engine', 'njk');
-
-// Configurarea directorul pentru fisierele statice
-app.use(express.static(path.join(__dirname, '/public')));
-app.use('/tutorial', express.static(path.join(__dirname, '/tutorial')));
-
-app.use(function (req, res, next) {
-    res.locals.isActive = function (path) {
-        if (path === '/') {
-            return req.path === '/' && req.path.length === 1 ? 'active' : '';
-        } else {
-            return req.path.includes(path) ? 'active' : '';
-        }
-    };
-    next();
-});
-
-
-// Middleware pentru a furniza subdirectoarele
-app.use(function (req, res, next) {
-    const menu = [];
-
-    fileStructure.forEach(filePath => {
-        if (!filePath.includes('.') || (filePath.includes('.') && filePath.endsWith('.md'))) {
-            const components = filePath.split('/').slice(1).filter(element => element !== "tutorial");
-            let currentLevel = menu;
-
-            components.slice(0, -1).forEach(component => {
-                let existingItem = currentLevel.find(item => item.text === component);
-                const isActive = req.path.includes(component); // Verifica daca directorul este activ
-                if (!existingItem) {
-                    // Daca nu exista, il adaugam
-                    existingItem = {
-                        text: component.replace(/[-_]/g, ' '),
-                        active: isActive,
-                        items: []
-                    };
-                    currentLevel.push(existingItem);
-                }
-                currentLevel = existingItem.items;
-            });
-
-            const fileName = components[components.length - 1];
-            const nameWithoutExtension = fileName.endsWith('.md') ? fileName.replace(/\.md$/, '') : fileName;
-            let url = filePath.endsWith('.md') ? filePath.replace(/\.md$/, '') : filePath;
-            currentLevel.push({
-                text: nameWithoutExtension.replace(/[-_]/g, ' '),
-                url: url
-            });
-        }
-    });
-    res.locals.subdirectories = menu;
-    next();
-});
 
 
 // routes
@@ -182,35 +101,16 @@ app.get('/search', (req, res) => {
     res.render('search', { title: 'Search Results', term: query, results: searchResults });
 });
 
-fileStructure.forEach(file => {
-    let filepath = file;
-    if (filepath.includes('.') && filepath.endsWith('.md')) {
-        app.use(express.static(__dirname + filepath));
-        const route = filepath.endsWith('.md') ? filepath.replace(/\.md$/, '') : filepath;
-        app.get(route, (req, res) => {
-            const namefile = route.split('/').pop().replace(/\.md$/, '').replace(/[-_]/g, ' ');
-            res.locals.nameFile = namefile.charAt(0).toUpperCase() + namefile.slice(1);
-            res.render('tutorial', { title: 'Tutorial', source: filepath });
-        });
-    }
-});
-
-
-routes.forEach(route => {
-    app.get(route, (req, res) => {
-        res.render('tutorial', { title: 'Tutorial' });
-    });
-});
-
 app.get('/tutorial', (req, res) => {
     res.render('tutorial', { title: 'Tutorial' });
 
 });
 
 
-// app.get('/materials', (req, res) => {
-//     res.render('materials', {title: 'Materials'});
-// });
+
+app.get('/materials', (req, res) => {
+    res.render('materials', { title: 'Materials' });
+});
 
 
 // // Pornirea serverului

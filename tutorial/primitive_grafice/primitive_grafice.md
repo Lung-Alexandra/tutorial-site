@@ -36,18 +36,17 @@ vârfurile indicate, pentru ca poligonul să poată  desenat:
 Punctele  P<sub>1</sub> = (7, 1, 1) ,  P<sub>2</sub> = (-3, 3, 9) ,  P<sub>3</sub> = (1, -1, 9) , P<sub>4</sub> = (8, -4, 5)  sunt coplanare.
 
 
-$\overrightarrow{P_1P_2} \times \overrightarrow{P_2P_3} = (32, 32, 32) \$
+$\overrightarrow{P_{1}P_{2}} \times \overrightarrow{P_{2}P_{3}} = (32, 32, 32)$
 
-$\overrightarrow{P_2P_3} \times \overrightarrow{P_3P_4} = (16, 16, 16) \$
+$\overrightarrow{P_{2}P_{3}} \times \overrightarrow{P_{3}P_{4}} = (16, 16, 16)$
 
-$\overrightarrow{P_3P_4} \times \overrightarrow{P_4P_1} = (32, 32, 32) \$
+$\overrightarrow{P_{3}P_{4}} \times \overrightarrow{P_{4}P_{1}} = (32, 32, 32)$
 
-$\overrightarrow{P_4P_1} \times \overrightarrow{P_1P_2} = (48, 48, 48) \$
+$\overrightarrow{P_{4}P_{1}} \times \overrightarrow{P_{1}P_{2}} = (48, 48, 48)$
 
-$\overrightarrow{P_1P_2} \times \overrightarrow{P_2P_3} =
+$\overrightarrow{P_{1}P_{2}} \times \overrightarrow{P_{2}P_{3}} =
 \begin{vmatrix}
--10 & 4 & e_1 \\\\
-2 & -4 & e_2 \\\\
+-10 & 4 & e_1 \\
+2 & -4 & e_2 \\
 8 & 0 & e_3
-\end{vmatrix}
-\$
+\end{vmatrix}$

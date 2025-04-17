@@ -32,7 +32,7 @@ return 0;
 | Code           | `code`                          |
 | Horizontal Rule| ---                             |
 | Link           | [title](https://www.example.com) |
-| Image          | ![s-a inclus imaginea](img.jpg) |
+| Image          | ![s-a inclus imaginea](/images/tutorial/introduction/img.jpg) |
 
 
 
