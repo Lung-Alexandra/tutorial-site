@@ -30,8 +30,6 @@ const Navigation: React.FC<NavigationProps> = ({ nav }) => {
             });
         }
 
-        console.log(expanded);
-        console.log(navTree);
         setExpandedFolders(expanded);
     }, [router.asPath]);
 
